@@ -147,7 +147,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 				};
 
 				addTopItemLore(`§3§lPurse: §r§e${Math.round(member.coin_purse * 10) / 10}`);
-				addTopItemLore(`§3§lFairy Souls: §r§5${member.fairy_souls_collected}`);
+				addTopItemLore(`§3§lFairy Souls: §r§5${member.fairy_souls_collected ?? "UNKOWN"}`);
 
 				var pastNames = member.names;
 				if (pastNames.length > 1) {
@@ -291,7 +291,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			inventory.addItems(items);
 
 			break;
-		case 5:
+		case 5: // Wardrobe Page 1
 			inventory = new Inventory(InventoryType.CONTAINER, `§3Stats §8- Wardrobe Of §6${name}`, 54);
 
 			var items = [];
@@ -348,7 +348,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
 						inventory.addItem(bootsItem, i + 27);
 					}
-				} else if (!items.find(e => e.position == i)) {
+				} else if (!items.find(e => e.position == i) && !items.find(e => e.position == i + 9) && !items.find(e => e.position == i + 18) && !items.find(e => e.position == i + 27)) {
 					SelectedItem.meta = "8";
 					SelectedItem.displayName = `Slot ${i + 1}: §cEmpty`;
 				} else {
@@ -363,13 +363,96 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 			inventory.addItems(items);
 
+			var NextPage = new Item(262);
+			NextPage.displayName = "§aNext Page";
+			NextPage.lore = ["§ePage 2"];
+			inventory.addItem(NextPage, inventory.slotCount - 4);
+
+			break;
+		case 6: // Wardrobe Page 2
+			inventory = new Inventory(InventoryType.CONTAINER, `§3Stats §8- Wardrobe Of §6${name}`, 54);
+
+			var items = [];
+
+			for (var slot of data.data.slice(36)) {
+				if (!slot.id) continue;
+				var item = new Item(slot.id.value, slot.Count.value);
+				if (slot.Damage.value) item.meta = slot.Damage.value;
+				item.displayName = slot.tag.value.display.value.Name.value;
+				item.lore = slot.tag.value.display.value.Lore.value.value;
+				items[items.length] = {
+					item,
+					position: (data.data.indexOf(slot) - 36).toString()
+				};
+			}
+
+			for (var i = 0; i < 9; i++) {
+				var SelectedItem = new Item(351);
+				if (data.equipped == i + 9 + 1) {
+					SelectedItem.meta = "10";
+					SelectedItem.displayName = `Slot ${i + 1}: §aEquipped`;
+					var helmet = data.current[3];
+					var chestplate = data.current[2];
+					var leggings = data.current[1];
+					var boots = data.current[0];
+					if (helmet?.id) {
+						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
+						if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
+						helmetItem.displayName = helmet.tag.value.display.value.Name.value;
+						helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
+						inventory.addItem(helmetItem, i);
+					}
+
+					if (chestplate?.id) {
+						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
+						if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
+						chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
+						chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
+						inventory.addItem(chestplateItem, i + 9);
+					}
+
+					if (leggings?.id) {
+						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
+						if (chestplate.Damage.value) leggingsItem.meta = leggings.Damage.value;
+						leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
+						leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
+						inventory.addItem(leggingsItem, i + 18);
+					}
+
+					if (boots?.id) {
+						var bootsItem = new Item(boots.id.value, boots.Count.value);
+						if (chestplate.Damage.value) bootsItem.meta = boots.Damage.value;
+						bootsItem.displayName = boots.tag.value.display.value.Name.value;
+						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+						inventory.addItem(bootsItem, i + 27);
+					}
+				} else if (!items.find(e => e.position == i) && !items.find(e => e.position == i + 9) && !items.find(e => e.position == i + 18) && !items.find(e => e.position == i + 27)) {
+					SelectedItem.meta = "8";
+					SelectedItem.displayName = `Slot ${i + 9 + 1}: §cEmpty`;
+				} else {
+					SelectedItem.meta = "9";
+					SelectedItem.displayName = `Slot ${i + 9 + 1}: §aReady`;
+				}
+				items[items.length] = {
+					item: SelectedItem,
+					position: 36 + i
+				};
+			}
+
+			inventory.addItems(items);
+
+			var PrevPage = new Item(262);
+			PrevPage.displayName = "Previous Page";
+			PrevPage.lore = ["§ePage 1"];
+			inventory.addItem(PrevPage, inventory.slotCount - 6);
+
 			break;
 	}
 
 	var Refresh = new Item(399);
 	Refresh.displayName = "§6Reload";
 
-	// inventory.addItem(Refresh, inventory.slotCount - 9);
+	inventory.addItem(Refresh, inventory.slotCount - 9);
 
 	const Close = new Item(166);
 	Close.displayName = "§cClose";
@@ -435,6 +518,11 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 								name
 							)
 						).display(player);
+						break;
+					}
+					if (nbtName.includes("Previous Page") || nbtName.includes("Next Page")) {
+						inventory.close(player);
+						(await createStatsInventoryOverlay(inventory, nbtName.includes("Previous Page") ? 5 : 6, rawData, player, name)).display(player);
 						break;
 					}
 				}
