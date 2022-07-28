@@ -226,6 +226,10 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			PersonalVault.displayName = "§3View Personal Vault";
 			if (!data.personal_vault_contents) PersonalVault.lore = ["", "§cThis Player Has The §4Personal Bank Vault §cAPI Setting §4OFF", ""];
 
+			var Wardrobe = new Item(299);
+			Wardrobe.displayName = "§3View Wardrobe";
+			if (!data.wardrobe_contents) Wardrobe.lore = ["", "§cThis Player Has The §4Inventory §cAPI Setting §4OFF", ""];
+
 			inventory.addItems([
 				{
 					item: MainInventory,
@@ -234,6 +238,10 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 				{
 					item: PersonalVault,
 					position: "1"
+				},
+				{
+					item: Wardrobe,
+					position: "2"
 				}
 			]);
 
@@ -263,7 +271,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			inventory.addItems(items);
 
 			break;
-		case 4:
+		case 4: // View Personal Vault
 			inventory = new Inventory(InventoryType.CONTAINER, `§3Stats §8- Personal Vault Of §6${name}`, 36);
 
 			var items = [];
@@ -283,12 +291,85 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			inventory.addItems(items);
 
 			break;
+		case 5:
+			inventory = new Inventory(InventoryType.CONTAINER, `§3Stats §8- Wardrobe Of §6${name}`, 54);
+
+			var items = [];
+
+			for (var slot of data.data.slice(0, 36)) {
+				if (!slot.id) continue;
+				var item = new Item(slot.id.value, slot.Count.value);
+				if (slot.Damage.value) item.meta = slot.Damage.value;
+				item.displayName = slot.tag.value.display.value.Name.value;
+				item.lore = slot.tag.value.display.value.Lore.value.value;
+				items[items.length] = {
+					item,
+					position: data.data.indexOf(slot).toString()
+				};
+			}
+
+			for (var i = 0; i < 9; i++) {
+				var SelectedItem = new Item(351);
+				if (data.equipped == i + 1) {
+					SelectedItem.meta = "10";
+					SelectedItem.displayName = `Slot ${i + 1}: §aEquipped`;
+					var helmet = data.current[3];
+					var chestplate = data.current[2];
+					var leggings = data.current[1];
+					var boots = data.current[0];
+					if (helmet?.id) {
+						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
+						if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
+						helmetItem.displayName = helmet.tag.value.display.value.Name.value;
+						helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
+						inventory.addItem(helmetItem, i);
+					}
+
+					if (chestplate?.id) {
+						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
+						if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
+						chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
+						chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
+						inventory.addItem(chestplateItem, i + 9);
+					}
+
+					if (leggings?.id) {
+						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
+						if (chestplate.Damage.value) leggingsItem.meta = leggings.Damage.value;
+						leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
+						leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
+						inventory.addItem(leggingsItem, i + 18);
+					}
+
+					if (boots?.id) {
+						var bootsItem = new Item(boots.id.value, boots.Count.value);
+						if (chestplate.Damage.value) bootsItem.meta = boots.Damage.value;
+						bootsItem.displayName = boots.tag.value.display.value.Name.value;
+						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+						inventory.addItem(bootsItem, i + 27);
+					}
+				} else if (!items.find(e => e.position == i)) {
+					SelectedItem.meta = "8";
+					SelectedItem.displayName = `Slot ${i + 1}: §cEmpty`;
+				} else {
+					SelectedItem.meta = "9";
+					SelectedItem.displayName = `Slot ${i + 1}: §aReady`;
+				}
+				items[items.length] = {
+					item: SelectedItem,
+					position: 36 + i
+				};
+			}
+
+			inventory.addItems(items);
+
+			break;
 	}
 
 	var Refresh = new Item(399);
 	Refresh.displayName = "§6Reload";
 
-	inventory.addItem(Refresh, inventory.slotCount - 9);
+	// inventory.addItem(Refresh, inventory.slotCount - 9);
 
 	const Close = new Item(166);
 	Close.displayName = "§cClose";
@@ -337,6 +418,23 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					if (nbtName.endsWith("View Personal Vault") && !nbtLore[1]?.includes("OFF")) {
 						inventory.close(player);
 						(await createStatsInventoryOverlay(inventory, 4, await decodeNBT(data.personal_vault_contents.data), player, name)).display(player);
+						break;
+					}
+					if (nbtName.endsWith("View Wardrobe") && !nbtLore[1]?.includes("OFF")) {
+						inventory.close(player);
+						(
+							await createStatsInventoryOverlay(
+								inventory,
+								5,
+								{
+									data: await decodeNBT(data.wardrobe_contents.data),
+									equipped: data.wardrobe_equipped_slot,
+									current: await decodeNBT(data.inv_armor.data)
+								},
+								player,
+								name
+							)
+						).display(player);
 						break;
 					}
 				}
