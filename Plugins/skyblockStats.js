@@ -895,6 +895,10 @@ const cmd = new toolbox.Command(
 	[] // Command aliases
 );
 
+async function getUser(username) {
+	return await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
+}
+
 function sendMessage(text) {
 	player.sendMessage(`
     ${text}
@@ -902,8 +906,9 @@ function sendMessage(text) {
 }
 
 var helpMenuItems = {
-	help: "Shows this Help Menu",
-	stats: "Shows a lot of Stats about a Player"
+	help: "Shows This Help Menu",
+	stats: "Shows A Lot Of Stats About A Player",
+	purse: "Shows The Purse Of A Player"
 };
 
 var helpMenuText = `
@@ -918,7 +923,7 @@ var helpMenuText = `
 async function createStatsInventoryOverlay(mainInventory, type, data, player, name, id) {
 	var rawData = data;
 
-	if (!id) var id = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`)).id;
+	if (!id) var { id } = await getUser(name);
 
 	let inventory = null;
 	switch (type) {
@@ -980,7 +985,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					}
 				};
 
-				addTopItemLore(`§3§lPurse: §r§e${Math.round(member.coin_purse * 10) / 10}`);
+				addTopItemLore(`§3§lPurse: §r§e${(Math.round(member.coin_purse * 10) / 10).toLocaleString()}`);
 				addTopItemLore(`§3§lFairy Souls: §r§5${member.fairy_souls_collected ?? "UNKOWN"}`);
 
 				var pastNames = member.names;
@@ -1370,8 +1375,10 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 }
 
 async function createStatsInventory(player) {
-	var { name, id } = await fetch(`https://api.mojang.com/users/profiles/minecraft/${player}`);
+	var { name, id } = await getUser(player);
 	player = cmd.player;
+
+	if (!name || !id) return sendMessage("This Player Doesn't Exist!");
 
 	var { profiles } = await fetch(`/skyblock/profiles?uuid=${id}`);
 	profiles = profiles
@@ -1500,6 +1507,49 @@ cmd.onTriggered = async (chatCommand, args) => {
 				break;
 			}
 			(await createStatsInventory(extra)).display(cmd.player);
+			break;
+		case "purse":
+			if (!extra) {
+				extra = cmd.player.client.username;
+			}
+			var { name, id } = await getUser(extra);
+			if (!name || !id) return sendMessage("This Player Doesn't Exist!");
+			var { profiles } = await fetch(`/skyblock/profiles?uuid=${id}`);
+			profiles = profiles
+				.map(profile => {
+					return {
+						profile: profile.profile_id,
+						name: profile.cute_name,
+						last_save: profile.members[id].last_save
+					};
+				})
+				.sort((a, b) => {
+					if (a.last_save < b.last_save) {
+						return 1;
+						// A after B
+					}
+					if (a.last_save > b.last_save) {
+						return -1;
+						// A before B
+					}
+					return 0;
+				})
+				.map(profile => profiles.find(p => p.profile_id == profile.profile));
+			profiles = profiles.map(profile => {
+				if (profiles.indexOf(profile) == 0) {
+					return {
+						...profile,
+						current: true
+					};
+				} else {
+					return {
+						...profile,
+						current: false
+					};
+				}
+			});
+			var profile = profiles.find(i => i.current);
+			sendMessage(`§6§l${name}§r§3's Purse On §2§l${profile.cute_name}§r§3: §e${(Math.round(profile.members[Object.keys(profile.members).find(i => i == id)].coin_purse * 10) / 10).toLocaleString()}`);
 			break;
 		default:
 			if (Object.keys(helpMenuItems).includes(type)) {
