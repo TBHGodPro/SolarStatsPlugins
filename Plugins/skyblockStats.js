@@ -9,14 +9,19 @@ function requireF(module) {
 	}
 }
 
+const nbt = requireF("prismarine-nbt");
+async function decodeNBT(data) {
+	return (await nbt.parse(Buffer.from(data, "base64"))).parsed.value.i.value.value;
+}
+
 const mainDir = __dirname
 	.split("/")
 	.splice(0, __dirname.split("/").length - 2)
 	.join("/");
 
-const apiKey = JSON.parse(require("node:fs").readFileSync(`${mainDir}/config.json`)).apiKey;
+const apiKey = JSON.parse(requireF("node:fs").readFileSync(`${mainDir}/config.json`)).apiKey;
 
-const dirFetch = require("node-fetch");
+const dirFetch = requireF("node-fetch");
 const fetch = async (url, data) => {
 	if (!url.startsWith("http")) {
 		url = `https://api.hypixel.net${url.startsWith("/") ? url : `/${url}`}`;
@@ -33,9 +38,9 @@ const fetch = async (url, data) => {
 	return data;
 };
 
-const Item = require("../Classes/Item").default;
-const Inventory = require("../Classes/Inventory").default;
-const { InventoryType } = require("../Types");
+const Item = requireF("../Classes/Item").default;
+const Inventory = requireF("../Classes/Inventory").default;
+const { InventoryType } = requireF("../Types");
 
 // Creating the command
 // See src/Classes/Command.ts for more information
@@ -77,7 +82,6 @@ var helpMenuText = `
 `;
 
 async function createStatsInventoryOverlay(mainInventory, type, data, player, name, id) {
-	const nbt = requireF("prismarine-nbt");
 	var rawData = data;
 
 	if (!id) var id = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`)).id;
@@ -88,8 +92,8 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var member of Object.keys(data.members)) {
 				data.members[member].id = member;
 				var names = await fetch(`https://api.mojang.com/user/profiles/${member}/names`);
-				data.members[member].names = names;
 				data.members[member].username = names[names.length - 1].name;
+				data.members[member].names = names.filter(n => n.name != data.members[member].username).reverse();
 			}
 
 			inventory = new Inventory(InventoryType.CONTAINER, `§3Stats §8- §6${name} §8- §2${data.cute_name}`, 63);
@@ -142,9 +146,12 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					}
 				};
 
+				addTopItemLore(`§3§lPurse: §r§e${Math.round(member.coin_purse * 10) / 10}`);
+				addTopItemLore(`§3§lFairy Souls: §r§5${member.fairy_souls_collected}`);
+
 				var pastNames = member.names;
 				if (pastNames.length > 1) {
-					addTopItemLore(["§3§lName Histor§6:", ...member.names.map(name => ` - §r§6${name.name}`)]);
+					addTopItemLore(["§3§lName History§6:", ...member.names.map(name => ` - §r§6${name.name}`)]);
 				}
 
 				var activePet = member.pets.find(i => i.active);
@@ -159,7 +166,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 				viewInventoriesButton.displayName = "§3§lView Inventories";
 				viewInventoriesButton.lore = ["", `§3Inventories Of §6${member.username}`, ""];
 
-				var armor = (await nbt.parse(Buffer.from(member.inv_armor.data, "base64"))).parsed.value.i.value.value;
+				var armor = await decodeNBT(member.inv_armor.data);
 				var helmet = armor[3];
 				var chestplate = armor[2];
 				var leggings = armor[1];
@@ -215,10 +222,18 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			MainInventory.displayName = "§3View Inventory";
 			if (!data.inv_contents) MainInventory.lore = ["", "§cThis Player Has The §4Inventory §cAPI Setting §4OFF", ""];
 
+			var PersonalVault = new Item(54);
+			PersonalVault.displayName = "§3View Personal Vault";
+			if (!data.personal_vault_contents) PersonalVault.lore = ["", "§cThis Player Has The §4Personal Bank Vault §cAPI Setting §4OFF", ""];
+
 			inventory.addItems([
 				{
 					item: MainInventory,
 					position: "0"
+				},
+				{
+					item: PersonalVault,
+					position: "1"
 				}
 			]);
 
@@ -242,6 +257,26 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 				items[items.length] = {
 					item,
 					position: position.toString()
+				};
+			}
+
+			inventory.addItems(items);
+
+			break;
+		case 4:
+			inventory = new Inventory(InventoryType.CONTAINER, `§3Stats §8- Personal Vault Of §6${name}`, 36);
+
+			var items = [];
+
+			for (var slot of data) {
+				if (!slot.id) continue;
+				var item = new Item(slot.id.value, slot.Count.value);
+				if (slot.Damage.value) item.meta = slot.Damage.value;
+				item.displayName = slot.tag.value.display.value.Name.value;
+				item.lore = slot.tag.value.display.value.Lore.value.value;
+				items[items.length] = {
+					item,
+					position: data.indexOf(slot).toString()
 				};
 			}
 
@@ -296,7 +331,12 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					}
 					if (nbtName.endsWith("View Inventory") && !nbtLore[1]?.includes("OFF")) {
 						inventory.close(player);
-						(await createStatsInventoryOverlay(inventory, 3, (await nbt.parse(Buffer.from(data.inv_contents.data, "base64"))).parsed.value.i.value.value, player, name)).display(player);
+						(await createStatsInventoryOverlay(inventory, 3, await decodeNBT(data.inv_contents.data), player, name)).display(player);
+						break;
+					}
+					if (nbtName.endsWith("View Personal Vault") && !nbtLore[1]?.includes("OFF")) {
+						inventory.close(player);
+						(await createStatsInventoryOverlay(inventory, 4, await decodeNBT(data.personal_vault_contents.data), player, name)).display(player);
 						break;
 					}
 				}
@@ -440,15 +480,6 @@ cmd.onTriggered = async (chatCommand, args) => {
 				break;
 			}
 			(await createStatsInventory(extra)).display(cmd.player);
-			/*
-			try {
-				const open = require("open");
-				sendMessage("Feature Not Ready Yet\n    Redirecting You To External Website");
-				open(`https://sky.lea.moe/stats/${extra}`);
-			} catch {
-				sendMessage("Feature Not Ready Yet\n    Failed To Redirect You To External Website\n\n    Please run\n\n        §l§6npm install §3open\n\n    §rIn The Folder Where You Have Solar Stats Installed.");
-			}
-			*/
 			break;
 		default:
 			if (Object.keys(helpMenuItems).includes(type)) {
