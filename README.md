@@ -1,5 +1,5 @@
 # SolarStatsPlugins
-A Huge Repo Full Of Plugins For SolarStats
+A Repo Full Of Plugins For SolarStats
 <br /><br /><br />
 ## How To Install
 Download The Plugin Files By Clicking The `Code` Button And Click `Download ZIP`.
