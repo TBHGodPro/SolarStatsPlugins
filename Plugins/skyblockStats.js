@@ -1005,38 +1005,40 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 				viewInventoriesButton.displayName = "§3§lView Inventories";
 				viewInventoriesButton.lore = ["", `§3Inventories Of §6${member.username}`, ""];
 
-				var armor = await decodeNBT(member.inv_armor.data);
-				var helmet = armor[3];
-				var chestplate = armor[2];
-				var leggings = armor[1];
-				var boots = armor[0];
+				if (member.inv_armor?.data) {
+					var armor = await decodeNBT(member.inv_armor.data);
+					var helmet = armor[3];
+					var chestplate = armor[2];
+					var leggings = armor[1];
+					var boots = armor[0];
 
-				if (helmet?.id) {
-					var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-					if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
-					helmetItem.displayName = helmet.tag.value.display.value.Name.value;
-					helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
-				}
+					if (helmet?.id) {
+						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
+						if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
+						helmetItem.displayName = helmet.tag.value.display.value.Name.value;
+						helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
+					}
 
-				if (chestplate?.id) {
-					var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-					if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
-					chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
-					chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
-				}
+					if (chestplate?.id) {
+						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
+						if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
+						chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
+						chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
+					}
 
-				if (leggings?.id) {
-					var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-					if (chestplate.Damage.value) leggingsItem.meta = leggings.Damage.value;
-					leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
-					leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
-				}
+					if (leggings?.id) {
+						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
+						if (leggings.Damage.value) leggingsItem.meta = leggings.Damage.value;
+						leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
+						leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
+					}
 
-				if (boots?.id) {
-					var bootsItem = new Item(boots.id.value, boots.Count.value);
-					if (chestplate.Damage.value) bootsItem.meta = boots.Damage.value;
-					bootsItem.displayName = boots.tag.value.display.value.Name.value;
-					bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+					if (boots?.id) {
+						var bootsItem = new Item(boots.id.value, boots.Count.value);
+						if (boots.Damage.value) bootsItem.meta = boots.Damage.value;
+						bootsItem.displayName = boots.tag.value.display.value.Name.value;
+						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+					}
 				}
 
 				playerItems[i] = [topItem, viewInventoriesButton, ...(helmetItem ? [helmetItem] : []), ...(chestplateItem ? [chestplateItem] : []), ...(leggingsItem ? [leggingsItem] : []), ...(bootsItem ? [bootsItem] : [])];
