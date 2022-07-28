@@ -6,7 +6,7 @@ Download The Plugin Files By Clicking The `Code` Button And Click `Download ZIP`
 
 Unzip The File.
 
-Open the Unzipped Folder, Open `Plugins`, Click The Plugin You Want, Copy It, And Paste It Into The `Plugin` Folder Of SolarStats.
+Open the Unzipped Folder, Open `Plugins`, Click The Plugin You Want, Copy It, And Paste It Into The `Plugins` Folder Of SolarStats.
 <br /><br />
 Now Close SolarStats If It Is Open.
 <br /><br />
