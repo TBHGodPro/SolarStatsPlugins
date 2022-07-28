@@ -993,7 +993,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					addTopItemLore(["§3§lName History§6:", ...member.names.map(name => ` - §r§6${name.name}`)]);
 				}
 
-				var activePet = member.pets.find(i => i.active);
+				var activePet = member.pets?.find(i => i?.active);
 				if (activePet) {
 					addTopItemLore(`§3§lActive Pet: ${getPetText(activePet)}`);
 				}
