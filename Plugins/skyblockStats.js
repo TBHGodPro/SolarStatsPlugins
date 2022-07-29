@@ -854,6 +854,7 @@ const mainDir = __dirname
 	.join("/");
 
 const apiKey = JSON.parse(requireF("node:fs").readFileSync(`${mainDir}/config.json`)).apiKey;
+var rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
 const dirFetch = requireF("node-fetch");
 const fetch = async (url, data) => {
@@ -1054,6 +1055,87 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					})
 				);
 			}
+
+			var bankItem = new Item(130);
+
+			if (data.banking) {
+				bankItem.displayName = `§6§lBank: §e§l${Math.round(data.banking.balance).toLocaleString()}`;
+				bankItem.lore = [""];
+				var transactions = data.banking.transactions.reverse();
+
+				if (transactions[0].action == "WITHDRAW" && transactions[0].amount > 0) {
+					transactions[0].amount = parseFloat(`-${transactions[0].amount}`);
+				}
+				if (transactions[0].action == "DEPOSIT" && transactions[0].amount < 0) {
+					transactions[0].amount = Math.abs(transactions[0].amount);
+				}
+
+				for (var i of transactions) {
+					var index = transactions.indexOf(i);
+
+					if (transactions[index + 1])
+						if (transactions[index + 1].initiator_name == i.initiator_name) {
+							if (transactions[index + 1].action == "WITHDRAW" && transactions[index + 1].amount > 0) {
+								transactions[index + 1].amount = parseFloat(`-${transactions[index + 1].amount}`);
+							}
+							if (transactions[index + 1].action == "DEPOSIT" && transactions[index + 1].amount < 0) {
+								transactions[index + 1].amount = Math.abs(transactions[index + 1].amount);
+							}
+
+							transactions[index + 1].amount = transactions[index + 1].amount + i.amount;
+
+							continue;
+						}
+
+					if (!i.amount) continue;
+
+					var mses = [1000 * 60 * 60 * 24, 1000 * 60 * 60, 1000 * 60, 1000];
+					var indicators = ["day", "hour", "minute", "second"];
+
+					var difference = [Math.round((i.timestamp - new Date().getTime()) / mses[0]), indicators[0]];
+					var counter = 1;
+					while ((difference[0] == 0 || difference[0] == 1 || difference[0] == -1) && counter < 4) {
+						difference = [Math.round((i.timestamp - new Date().getTime()) / mses[counter]), indicators[counter]];
+						counter += 1;
+					}
+
+					bankItem.lore.push(`${i.amount > 0 ? "§a+" : "§c-"} §6${Math.round(Math.abs(i.amount)).toLocaleString()}§7, §e${rtf.format(parseInt(difference[0]), [difference[1]])} §7by ${i.initiator_name}`);
+				}
+
+				bankItem.lore.push("");
+			} else {
+				bankItem.displayName = "§6§lBank: §cThe §4Banking API §cIs §4OFF §cFor This Profile";
+			}
+
+			inventory.addItem(bankItem, inventory.slotCount - 1);
+
+			var comUp = new Item(357);
+			var currentlyUpgrading = data.community_upgrades?.currently_upgrading;
+
+			if (currentlyUpgrading) {
+				var mses = [1000 * 60 * 60 * 24, 1000 * 60 * 60, 1000 * 60, 1000];
+				var indicators = ["day", "hour", "minute", "second"];
+
+				var difference = [Math.round((currentlyUpgrading.start_ms - new Date().getTime()) / mses[0]), indicators[0]];
+				var counter = 1;
+				while ((difference[0] == 0 || difference[0] == 1 || difference[0] == -1) && counter < 4) {
+					difference = [Math.round((currentlyUpgrading.start_ms - new Date().getTime()) / mses[counter]), indicators[counter]];
+					counter += 1;
+				}
+
+				comUp.displayName = `§3§lCommunity Upgrades: §2§l${currentlyUpgrading.upgrade
+					.split(" ")
+					.map(e => {
+						return e[0].toUpperCase() + e.substr(1).toLowerCase();
+					})
+					.join(" ")} §6§l${currentlyUpgrading.new_tier}`;
+
+				comUp.lore = ["", `§3Started §6${rtf.format(difference[0], difference[1])} §3By §6${data.members[currentlyUpgrading.who_started]?.username ?? "§r§cUNKOWN"}`];
+			} else {
+				comUp.displayName = "§3§lCommunity Upgrades: §rThere Is Nothing Currently Upgrading";
+			}
+
+			inventory.addItem(comUp, inventory.slotCount - 2);
 
 			break;
 		case 2: // View Inventories
