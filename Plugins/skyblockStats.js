@@ -1,14 +1,3 @@
-function requireF(module) {
-	try {
-		return require(module);
-	} catch (e) {
-		if (e.code != "MODULE_NOT_FOUND") {
-			throw e;
-		}
-		return null;
-	}
-}
-
 function parseText(text) {
 	return text
 		.split(" ")
@@ -845,7 +834,7 @@ function getPetText(pet) {
 	return `§7[Lvl ${level?.level ?? "§cERROR"}§7] ${tier}${parseText(pet.type)}`;
 }
 
-const nbt = requireF("prismarine-nbt");
+const nbt = requireModule("prismarine-nbt");
 async function decodeNBT(data) {
 	return (await nbt.parse(Buffer.from(data, "base64"))).parsed.value.i.value.value;
 }
@@ -857,7 +846,7 @@ const mainDir = __dirname
 
 var rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
-const dirFetch = requireF("node-fetch");
+const dirFetch = requireModule("node-fetch");
 const fetch = async (url, data) => {
 	if (!url.startsWith("http")) {
 		url = `https://api.hypixel.net${url.startsWith("/") ? url : `/${url}`}`;
@@ -875,7 +864,7 @@ const fetch = async (url, data) => {
 };
 
 const { Logger, Command, PlayerModule, Item, Inventory, getConfig, getConfigSync } = toolbox;
-const { InventoryType } = requireF("../Types");
+const { InventoryType } = requireModule("../Types");
 
 const config = getConfigSync();
 const { apiKey } = config;
