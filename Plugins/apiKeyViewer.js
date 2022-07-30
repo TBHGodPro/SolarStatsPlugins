@@ -1,4 +1,4 @@
-const { getConfigSync } = toolbox;
+const { getConfigSync, Command } = toolbox;
 
 const cmd = new Command(
 	"api", // Command name
