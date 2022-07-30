@@ -9,6 +9,15 @@ function requireF(module) {
 	}
 }
 
+function parseText(text) {
+	return text
+		.split(" ")
+		.map(e => {
+			return e[0].toUpperCase() + e.substr(1).toLowerCase();
+		})
+		.join(" ");
+}
+
 const petXP = [
 	{
 		level: 1,
@@ -833,14 +842,7 @@ function getPetText(pet) {
 		tier += "7";
 	}
 
-	var name = pet.type
-		.split(" ")
-		.map(e => {
-			return e[0].toUpperCase() + e.substr(1).toLowerCase();
-		})
-		.join(" ");
-
-	return `§7[Lvl ${level?.level ?? "§cERROR"}§7] ${tier}${name}`;
+	return `§7[Lvl ${level?.level ?? "§cERROR"}§7] ${tier}${parseText(pet.type)}`;
 }
 
 const nbt = requireF("prismarine-nbt");
@@ -872,10 +874,10 @@ const fetch = async (url, data) => {
 	return data;
 };
 
-const { Logger, Command, PlayerModule, Item, Inventory, getConfig } = toolbox;
+const { Logger, Command, PlayerModule, Item, Inventory, getConfig, getConfigSync } = toolbox;
 const { InventoryType } = requireF("../Types");
 
-const config = require("../utils/config.js").readConfigSync();
+const config = getConfigSync();
 const { apiKey } = config;
 
 // Creating the command
@@ -964,13 +966,27 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					break;
 				case 8:
 					playerIndexes = [1, 2, 3, 4, 6, 7, 8, 9];
+					break;
+				case 9:
+					playerIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+					break;
+				default:
+					playerIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+					break;
 			}
-			var playerIndexIndexes = [1, 2, 3, 4, 5, 6];
 
 			var playerItems = [];
 
 			for (var member of Object.values(data.members)) {
 				var i = playerItems.length;
+
+				if (Object.values(data.members).indexOf(member) > 8) {
+					var errorItem = new Item(166);
+					errorItem.displayName = `§c§lERROR:`;
+					errorItem.lore = [`§cThere Are More Players In This Profile's History`, `§cBut There Are Too Many To Display In This Menu.`];
+					inventory.addItem(errorItem, inventory.slotCount - 8);
+					break;
+				}
 
 				var topItem = new Item(397);
 				topItem.meta = 3;
@@ -1048,10 +1064,10 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 			for (var set of playerItems) {
 				inventory.addItems(
-					set.map(setItem => {
+					set.map((setItem, index) => {
 						return {
 							item: setItem,
-							position: playerIndexes[playerItems.indexOf(set)] - 1 + (playerIndexIndexes[set.indexOf(setItem)] - 1) * 9
+							position: playerIndexes[playerItems.indexOf(set)] - 1 + index * 9
 						};
 					})
 				);
@@ -1124,12 +1140,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					counter += 1;
 				}
 
-				comUp.displayName = `§3§lCommunity Upgrades: §2§l${currentlyUpgrading.upgrade
-					.split(" ")
-					.map(e => {
-						return e[0].toUpperCase() + e.substr(1).toLowerCase();
-					})
-					.join(" ")} §6§l${currentlyUpgrading.new_tier}`;
+				comUp.displayName = `§3§lCommunity Upgrades: §2§l${parseText(currentlyUpgrading.upgrade)} §6§l${currentlyUpgrading.new_tier}`;
 
 				comUp.lore = ["", `§3Started §6${rtf.format(difference[0], difference[1])} §3By §6${data.members[currentlyUpgrading.who_started]?.username ?? "§r§cUNKOWN"}`];
 			} else {
@@ -1677,6 +1688,30 @@ async function createStatsInventory(player) {
 
 	inventory.addItems([{ item: UUIDItem, position: 45 }, { item: Close, position: 49 }, ...parseProfileItems()]);
 
+	const onlineStatus = (await fetch(`/status?uuid=${id}`))?.session;
+	if (onlineStatus) {
+		var onlineItem = new Item(35);
+		if (onlineStatus.online) {
+			onlineItem.meta = 5;
+			onlineItem.displayName = "§a§lONLINE";
+			onlineItem.lore = [""];
+			if (onlineStatus.gameType) {
+				onlineItem.lore.push(`§rGame: §6${parseText(onlineStatus.gameType)}`);
+			}
+			if (onlineStatus.mode) {
+				onlineItem.lore.push(`§rMode: §6${parseText(onlineStatus.mode)}`);
+			}
+			if (onlineStatus.map) {
+				onlineItem.lore.push(`§rMap: §6${parseText(onlineStatus.map)}`);
+			}
+		} else {
+			onlineItem.meta = 14;
+			onlineItem.displayName = "§c§lOFFLINE";
+		}
+
+		inventory.addItem(onlineItem, inventory.slotCount - 1);
+	}
+
 	inventory.on("click", async event => {
 		if (event.mode != 0) {
 			event.cancel(player.client);
@@ -1684,9 +1719,6 @@ async function createStatsInventory(player) {
 		}
 
 		switch (event.slot) {
-			case 45:
-				event.cancel(player.client);
-				break;
 			case 49:
 				inventory.close(player);
 				break;
@@ -1697,6 +1729,7 @@ async function createStatsInventory(player) {
 					(await createStatsInventoryOverlay(inventory, 1, profiles[positions.indexOf(positions.find(i => i.position == event.slot))], player, name, id)).display(player);
 					break;
 				}
+				event.cancel(player.client);
 		}
 	});
 
