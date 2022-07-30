@@ -8,6 +8,9 @@ Unzip The File.
 
 Open the Unzipped Folder, Open `Plugins`, Click The Plugin You Want, Copy It, And Paste It Into The `Plugins` Folder Of SolarStats.
 <br /><br />
+### NOTE:
+The `Plugins (Compressed)` Folder Is For The Exact Same Plugins, And It Works The Exact Same Way, Just That The Files Are Smaller And It Runs A Bit Faster.
+<br /><br />
 Now Close SolarStats If It Is Open.
 <br /><br />
 Open A Terminal Tab, Navigate To Your SolarStats Folder:
