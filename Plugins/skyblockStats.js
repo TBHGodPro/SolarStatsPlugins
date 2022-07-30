@@ -863,7 +863,7 @@ const fetch = async (url, data) => {
 	return data;
 };
 
-const { Logger, Command, PlayerModule, Item, Inventory, getConfig, getConfigSync } = toolbox;
+const { Logger, Command, Item, Inventory, getConfigSync } = toolbox;
 const { InventoryType } = requireModule("../Types");
 
 const config = getConfigSync();
