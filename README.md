@@ -1,6 +1,6 @@
 # SolarStatsPlugins
 A Repo Full Of Plugins For SolarStats
-<br /><br /><br />
+<br /><br /><br /><br />
 ## How To Install
 Download The Plugin Files By Clicking The `Code` Button And Click `Download ZIP`.
 
@@ -19,7 +19,15 @@ ex: `cd Desktop/SolarStats`<br />
 (Whatever Folder You have Your's In)
 <br /><br />
 Type `npm start` Inside The Terminal, And You're Ready To Go!
-<br /><br /><br />
+<br /><br /><br /><br />
 ## skyblockStats
-A Plugin For A Huge Amount Of Helpers For Hypixel Skyblock
+A Huge Amount Of Helpers For Hypixel Skyblock
 #### Command: `/sb`
+<br /><br />
+## apiKeyViewer
+View Your API Key And Copy It
+#### Command: `/api`
+<br /><br />
+## bedwarsChestViewer
+View Your Bedwars Ender Chest And Team Chest As It Was The Last Time You Saw It
+#### Commands: `/ec` `/tc`
