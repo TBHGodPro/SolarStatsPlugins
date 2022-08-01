@@ -31,3 +31,7 @@ View Your API Key And Copy It
 ## bedwarsChestViewer
 View Your Bedwars Ender Chest And Team Chest As It Was The Last Time You Saw It
 #### Commands: `/ec` `/tc`
+<br /><br />
+## LCStaffMods
+Toggle Lunar Client Staff Mods
+#### Toggle: `/ss`
