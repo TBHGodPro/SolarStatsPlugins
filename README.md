@@ -35,3 +35,7 @@ View Your Bedwars Ender Chest And Team Chest As It Was The Last Time You Saw It
 ## LCStaffMods
 Toggle Lunar Client Staff Mods
 #### Toggle: `/ss`
+<br /><br />
+## PartyView
+Shows Your Party Members With LC Team View
+#### Toggle: `/ss`
