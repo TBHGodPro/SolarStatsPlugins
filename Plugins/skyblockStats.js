@@ -835,6 +835,7 @@ function getPetText(pet) {
 }
 
 const nbt = requireModule("prismarine-nbt");
+const { Buffer } = requireModule("node:buffer");
 async function decodeNBT(data) {
 	return (await nbt.parse(Buffer.from(data, "base64"))).parsed.value.i.value.value;
 }
