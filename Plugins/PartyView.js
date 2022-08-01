@@ -3,7 +3,7 @@ const getUUID = name => {
 };
 
 const settingItem = new toolbox.Item(4);
-settingItem.displayName = "Party View";
+settingItem.displayName = "§rParty View";
 settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your Party Members", "", `§7Current: §${toolbox.getConfigSync().modules.PartyView ? "aEnabled" : "cDisabled"}`];
 
 const module = new toolbox.PlayerModule("Party View", "View Your Party Members With LC Team View", settingItem, "PartyView");
