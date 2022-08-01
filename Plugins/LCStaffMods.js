@@ -8,9 +8,9 @@ var oldConfig = null;
 var config = toolbox.getConfigSync();
 
 module.customCode = () => {
-	setInterval(() => {
+	setInterval(async () => {
 		oldConfig = config;
-		config = toolbox.getConfigSync();
+		config = await toolbox.getConfig();
 		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
 			if (config.modules.staffMods) player.lcPlayer?.setStaffModState("XRAY", true);
 			else player.lcPlayer?.setStaffModState("XRAY", false);
