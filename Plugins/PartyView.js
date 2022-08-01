@@ -29,7 +29,7 @@ module.customCode = () => {
 				player.lcPlayer.addTeammate(id);
 			}
 		}
-		if (text.endsWith("left the party.")) {
+		if (text.endsWith("left the party.") && !text.startsWith("You")) {
 			var name = text.split(" ");
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers = partyMembers.filter(i => i != name);
@@ -39,7 +39,7 @@ module.customCode = () => {
 				player.lcPlayer.removeTeammate(id);
 			}
 		}
-		if (text.includes("has disbanded the party!")) {
+		if (text.includes("has disbanded the party!") || text.includes("You left the party.")) {
 			partyMembers = [];
 			player.lcPlayer.removeAllTeammates();
 		}
