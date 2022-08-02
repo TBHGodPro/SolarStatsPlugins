@@ -39,3 +39,10 @@ Toggle Lunar Client Staff Mods
 ## PartyView
 Shows Your Party Members With LC Team View
 #### Toggle: `/ss`
+<br /><br />
+## ThanksWatchdog
+Thank Watchdog For Absolutely Nothing :P
+<br /><br />
+## parkourTimer
+Adds A Live Parkour Timer When In Parkour + Adds Quick Reset Commands
+#### Reset Commands: `/pr` `/reset`

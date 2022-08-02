@@ -886,7 +886,7 @@ const cmd = new Command(
 			type: "string"
 		}
 	], // Command syntax
-	[] // Command aliases
+	["skyblock"] // Command aliases
 );
 
 async function getUser(username) {
