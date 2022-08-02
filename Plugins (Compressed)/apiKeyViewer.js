@@ -1,1 +1,7 @@
-const{getConfigSync,Command}=toolbox,cmd=new Command("api",[],[]);cmd.onTriggered=()=>{var{apiKey:a}=getConfigSync(),b={text:`\n§3Your API Key Is§6:\n\n§e${a.split("").join("\xA7e")}\n\n§r(§3Click To Put In The §6Chat Bar §3So You Can §6Copy §3It§6!§r)\n`,clickEvent:{action:"suggest_command",value:a}};player.client.write("chat",{message:JSON.stringify(b)})},registerCommand(cmd),registerPlugin({name:"API Key Viewer",description:".. what do you think dumbass",version:"1.0.0",author:"TBHGodPro"});
+const{getConfigSync:b,Command:a}=toolbox,cmd=new a("api",[],[]);cmd.onTriggered=()=>{var{apiKey:a}=b(),c={text:`
+\xa73Your API Key Is\xa76:
+
+\xa7e${a.split("").join("\xa7e")}
+
+\xa7r(\xa73Click To Put In The \xa76Chat Bar \xa73So You Can \xa76Copy \xa73It\xa76!\xa7r)
+`,clickEvent:{action:"suggest_command",value:a}};player.client.write("chat",{message:JSON.stringify(c)})},registerCommand(cmd),registerPlugin({name:"API Key Viewer",description:".. what do you think dumbass",version:"1.0.1",author:"TBHGodPro"})

@@ -26,7 +26,7 @@ module.customCode = () => {
 registerPlugin({
 	name: "LC Staff Mods (X-RAY)",
 	description: "Enable Staff Mods For Lunar Client",
-	version: "1.0.0",
+	version: "1.0.2",
 	author: "TBHGodPro"
 });
 

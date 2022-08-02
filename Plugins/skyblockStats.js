@@ -1801,6 +1801,6 @@ registerCommand(cmd);
 registerPlugin({
 	name: "Skyblock",
 	description: "Skyblock Helper",
-	version: "1.0.0", // Optional
+	version: "1.8.4", // Optional
 	author: "TBHGodPro" // Optional
 });

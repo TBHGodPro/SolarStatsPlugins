@@ -64,6 +64,6 @@ setInterval(() => {
 registerPlugin({
 	name: "Parkour Timer",
 	description: "Live Timer For Parkour",
-	version: "1.0.0",
+	version: "1.1.0",
 	author: "TBHGodPro"
 });

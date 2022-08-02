@@ -26,6 +26,6 @@ registerCommand(cmd);
 registerPlugin({
 	name: "API Key Viewer",
 	description: ".. what do you think dumbass",
-	version: "1.0.0", // Optional
+	version: "1.0.1", // Optional
 	author: "TBHGodPro" // Optional
 });

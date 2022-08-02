@@ -119,6 +119,6 @@ registerCommand(TCCommand);
 registerPlugin({
 	name: "Bedwars Chest Viewer",
 	description: "View Your Ender Chest And Team Chest From Anywhere",
-	version: "1.0.0", // Optional
+	version: "1.2.1", // Optional
 	author: "TBHGodPro" // Optional
 });

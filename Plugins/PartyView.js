@@ -123,7 +123,7 @@ player.listener.on("player_join", (id, name) => {
 registerPlugin({
 	name: "Party View",
 	description: "View Your Party Members With LC Team View",
-	version: "1.0.0",
+	version: "1.4.1",
 	author: "TBHGodPro"
 });
 

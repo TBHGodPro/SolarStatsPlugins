@@ -14,6 +14,6 @@ player.proxy.on("incoming", (data, meta, toClient, toServer) => {
 registerPlugin({
 	name: "Thanks Watchdog!",
 	description: "Thank Watchdog For Absolutely Nothing :P",
-	version: "1.0.0",
+	version: "1.0.1",
 	author: "TBHGodPro"
 });
