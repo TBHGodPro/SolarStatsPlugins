@@ -118,7 +118,7 @@ registerCommand(TCCommand);
 // Registering the plugin, always put this at the end of the file
 registerPlugin({
 	name: "Bedwars Chest Viewer",
-	description: "View Your Ender Chest And Team Chest From Anywhere",
+	description: "View Your Ender Chest And Team Chest From Anywhere | `/ec` `/tc`",
 	version: "1.2.1", // Optional
 	author: "TBHGodPro" // Optional
 });

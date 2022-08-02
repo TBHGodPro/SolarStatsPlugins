@@ -1800,7 +1800,7 @@ registerCommand(cmd);
 // Registering the plugin, always put this at the end of the file
 registerPlugin({
 	name: "Skyblock",
-	description: "Skyblock Helper",
+	description: "Skyblock Helper | `/skyblock` `/sb`",
 	version: "1.8.4", // Optional
 	author: "TBHGodPro" // Optional
 });

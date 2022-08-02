@@ -23,11 +23,11 @@ module.customCode = () => {
 	}, 500);
 };
 
+registerPlayerModule(module);
+
 registerPlugin({
 	name: "LC Staff Mods (X-RAY)",
-	description: "Enable Staff Mods For Lunar Client",
+	description: "Enable Staff Mods For Lunar Client | `/ss`",
 	version: "1.0.2",
 	author: "TBHGodPro"
 });
-
-registerPlayerModule(module);

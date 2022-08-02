@@ -25,7 +25,7 @@ registerCommand(cmd);
 // Registering the plugin, always put this at the end of the file
 registerPlugin({
 	name: "API Key Viewer",
-	description: ".. what do you think dumbass",
+	description: ".. what do you think dumbass | `/api`",
 	version: "1.0.1", // Optional
 	author: "TBHGodPro" // Optional
 });

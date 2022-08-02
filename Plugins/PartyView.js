@@ -120,11 +120,11 @@ player.listener.on("player_join", (id, name) => {
 	}
 });
 
+registerPlayerModule(module);
+
 registerPlugin({
 	name: "Party View",
-	description: "View Your Party Members With LC Team View",
+	description: "View Your Party Members With LC Team View | `/ss`",
 	version: "1.4.1",
 	author: "TBHGodPro"
 });
-
-registerPlayerModule(module);

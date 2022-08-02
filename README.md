@@ -1,8 +1,12 @@
 # SolarStatsPlugins
 A Repo Full Of Plugins For SolarStats
-<br /><br /><br /><br />
+<br /><br /><br />
 ## How To Install
-Download The Plugin By Going To The Most Recent Release, And Clicking The Plugins You Want, They Should Start Downloading
+Download The Plugin By Clicking Its Name Below, Then When A Page Opens With Its Code, Right Click The Page, And Select `Save As...`
+
+Put In The Plugin Name (Or Really Anything You Want) As The Name 
+
+**NOTE**: MAKE SURE IT ENDS WITH `.js`
 <br /><br />
 ### Solar Stats Raw
 Go To Your Solar Stats Folder, Then Click `plugins`, And Drag The File In There
@@ -22,31 +26,33 @@ Open Solar Tweaks, Then Click `Solar Stats`
 Drag The File Onto Where It Says `Drag Plugin Files Here`
 <br /><br />
 Restart The Proxy, And You're Ready To Go!
-<br /><br /><br /><br />
-## Plugin Info<br /><br />
-## skyblockStats
-A Huge Amount Of Helpers For Hypixel Skyblock
-#### Command: `/sb`
+<br /><br /><br />
+## Plugin Info
 <br /><br />
-## apiKeyViewer
-View Your API Key And Copy It
-#### Command: `/api`
+### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.2
+Enable Staff Mods For Lunar Client
+####  `/ss`
 <br /><br />
-## bedwarsChestViewer
-View Your Bedwars Ender Chest And Team Chest As It Was The Last Time You Saw It
-#### Commands: `/ec` `/tc`
+### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.1
+View Your Party Members With LC Team View
+####  `/ss`
 <br /><br />
-## LCStaffMods
-Toggle Lunar Client Staff Mods
-#### Toggle: `/ss`
-<br /><br />
-## PartyView
-Shows Your Party Members With LC Team View
-#### Toggle: `/ss`
-<br /><br />
-## ThanksWatchdog
+### [Thanks Watchdog!](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/ThanksWatchdog.js) v1.0.1
 Thank Watchdog For Absolutely Nothing :P
+#### undefined
 <br /><br />
-## parkourTimer
-Adds A Live Parkour Timer When In Parkour + Adds Quick Reset Commands
-#### Reset Commands: `/pr` `/reset`
+### [API Key Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/apiKeyViewer.js) v1.0.1
+.. what do you think dumbass
+####  `/api`
+<br /><br />
+### [Bedwars Chest Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/bedwarsChestViewer.js) v1.2.1
+View Your Ender Chest And Team Chest From Anywhere
+####  `/ec` `/tc`
+<br /><br />
+### [Parkour Timer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/parkourTimer.js) v1.1.0
+Live Timer For Parkour
+####  `/pr` `/reset`
+<br /><br />
+### [Skyblock](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockStats.js) v1.8.4
+Skyblock Helper
+####  `/skyblock` `/sb`
