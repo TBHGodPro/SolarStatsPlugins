@@ -1,6 +1,0 @@
-version = 1
-environment = ["nodejs"]
-
-[[analyzers]]
-name = "javascript"
-enabled = true
