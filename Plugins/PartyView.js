@@ -26,7 +26,7 @@ module.customCode = () => {
 			if (config.modules.PartyView) {
 				var id = getUUID(name);
 				if (!id) return;
-				player.lcPlayer.addTeammate(id);
+				player.lcPlayer?.addTeammate(id);
 			}
 		}
 		if (text.endsWith("left the party.") && !text.startsWith("You")) {
@@ -36,12 +36,12 @@ module.customCode = () => {
 			if (config.modules.PartyView) {
 				var id = getUUID(name);
 				if (!id) return;
-				player.lcPlayer.removeTeammate(id);
+				player.lcPlayer?.removeTeammate(id);
 			}
 		}
 		if (text.includes("has disbanded the party!") || text.includes("You left the party.")) {
 			partyMembers = [];
-			player.lcPlayer.removeAllTeammates();
+			player.lcPlayer?.removeAllTeammates();
 		}
 		if (text.includes("You have joined") && text.includes("party!")) {
 			setTimeout(() => player.executeCommand("/p list"), 1000);
@@ -50,12 +50,12 @@ module.customCode = () => {
 			var name = text.split(" ");
 			name = name.splice(name[0].startsWith("[") ? 4 : 3, name.length - (name[0].startsWith("[") ? 5 : 4)).join(" ");
 			partyMembers = [];
-			player.lcPlayer.removeAllTeammates();
+			player.lcPlayer?.removeAllTeammates();
 			partyMembers.push(name);
 			if (config.modules.PartyView) {
 				var id = getUUID(name);
 				if (!id) return;
-				player.lcPlayer.addTeammate(id);
+				player.lcPlayer?.addTeammate(id);
 			}
 		}
 		if (text.includes("Party Moderators:") || text.includes("Party Members:")) {
@@ -77,9 +77,13 @@ module.customCode = () => {
 				for (var name of names) {
 					var id = getUUID(name);
 					if (!id) return;
-					player.lcPlayer.addTeammate(id);
+					player.lcPlayer?.addTeammate(id);
 				}
 			}
+		}
+		if (text.includes("You are not currently in a party.")) {
+			partyMembers = [];
+			player.lcPlayer?.removeAllTeammates();
 		}
 	});
 	setInterval(async () => {
@@ -87,14 +91,14 @@ module.customCode = () => {
 		config = await toolbox.getConfig();
 		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
 			if (config.modules.PartyView) {
-				player.lcPlayer.removeAllTeammates();
+				player.lcPlayer?.removeAllTeammates();
 				partyMembers.forEach(name => {
 					var id = getUUID(name);
 					if (!id) return;
-					player.lcPlayer.addTeammate(id);
+					player.lcPlayer?.addTeammate(id);
 				});
 			} else {
-				player.lcPlayer.removeAllTeammates();
+				player.lcPlayer?.removeAllTeammates();
 			}
 		}
 	}, 500);
@@ -102,17 +106,17 @@ module.customCode = () => {
 
 player.listener.on("switch_server", () => {
 	if (config.modules.PartyView) {
-		player.lcPlayer.removeAllTeammates();
+		player.lcPlayer?.removeAllTeammates();
 		partyMembers.forEach(name => {
 			var id = getUUID(name);
 			if (!id) return;
-			player.lcPlayer.addTeammate(id);
+			player.lcPlayer?.addTeammate(id);
 		});
 	}
 });
 player.listener.on("player_join", (id, name) => {
 	if (config.modules.PartyView && partyMembers.includes(name) && id) {
-		player.lcPlayer.addTeammate(id);
+		player.lcPlayer?.addTeammate(id);
 	}
 });
 
