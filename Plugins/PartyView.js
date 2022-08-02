@@ -14,7 +14,7 @@ var config = toolbox.getConfigSync();
 var partyMembers = [];
 
 module.customCode = () => {
-	player.proxy.on("incoming", async (data, meta, toClient, toServer) => {
+	player.proxy.on("incoming", (data, meta, toClient, toServer) => {
 		if (meta.name != "chat") return;
 		var message = JSON.parse(data.message);
 		message.extra ??= [];
@@ -87,7 +87,8 @@ module.customCode = () => {
 		config = await toolbox.getConfig();
 		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
 			if (config.modules.PartyView) {
-				partyMembers.forEach(async name => {
+				player.lcPlayer.removeAllTeammates();
+				partyMembers.forEach(name => {
 					var id = getUUID(name);
 					if (!id) return;
 					player.lcPlayer.addTeammate(id);
@@ -99,17 +100,21 @@ module.customCode = () => {
 	}, 500);
 };
 
-module.onLocationUpdate = () => {
+player.listener.on("switch_server", () => {
 	if (config.modules.PartyView) {
-		partyMembers.forEach(async name => {
+		player.lcPlayer.removeAllTeammates();
+		partyMembers.forEach(name => {
 			var id = getUUID(name);
 			if (!id) return;
 			player.lcPlayer.addTeammate(id);
 		});
-	} else {
-		player.lcPlayer.removeAllTeammates();
 	}
-};
+});
+player.listener.on("player_join", (id, name) => {
+	if (config.modules.PartyView && partyMembers.includes(name) && id) {
+		player.lcPlayer.addTeammate(id);
+	}
+});
 
 registerPlugin({
 	name: "Party View",
