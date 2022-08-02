@@ -28,31 +28,38 @@ Drag The File Onto Where It Says `Drag Plugin Files Here`
 Restart The Proxy, And You're Ready To Go!
 <br /><br /><br />
 ## Plugin Info
-<br /><br />
+<br />
+	
 ### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.2
 Enable Staff Mods For Lunar Client
 ####  `/ss`
-<br /><br />
+<br />
+	
 ### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.1
 View Your Party Members With LC Team View
 ####  `/ss`
-<br /><br />
+<br />
+	
 ### [Thanks Watchdog!](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/ThanksWatchdog.js) v1.0.1
 Thank Watchdog For Absolutely Nothing :P
 #### undefined
-<br /><br />
+<br />
+	
 ### [API Key Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/apiKeyViewer.js) v1.0.1
 .. what do you think dumbass
 ####  `/api`
-<br /><br />
+<br />
+	
 ### [Bedwars Chest Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/bedwarsChestViewer.js) v1.2.1
 View Your Ender Chest And Team Chest From Anywhere
 ####  `/ec` `/tc`
-<br /><br />
+<br />
+	
 ### [Parkour Timer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/parkourTimer.js) v1.1.0
 Live Timer For Parkour
 ####  `/pr` `/reset`
-<br /><br />
+<br />
+	
 ### [Skyblock](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockStats.js) v1.8.4
 Skyblock Helper
 ####  `/skyblock` `/sb`
