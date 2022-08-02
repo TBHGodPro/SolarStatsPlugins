@@ -12,8 +12,13 @@ module.customCode = () => {
 		oldConfig = config;
 		config = await toolbox.getConfig();
 		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
-			if (config.modules.staffMods) player.lcPlayer?.setStaffModState("XRAY", true);
-			else player.lcPlayer?.setStaffModState("XRAY", false);
+			if (config.modules.staffMods) {
+				player.lcPlayer?.setStaffModState("XRAY", true);
+				player.lcPlayer?.sendNotification("Enabled Staff Mods", "success");
+			} else {
+				player.lcPlayer?.setStaffModState("XRAY", false);
+				player.lcPlayer?.sendNotification("Disabled Staff Mods", "error");
+			}
 		}
 	}, 500);
 };
