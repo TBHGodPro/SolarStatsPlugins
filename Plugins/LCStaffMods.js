@@ -8,6 +8,9 @@ settingItem.lore = ["", "§7Enable §fStaff Mods §7For §5Lunar Client", "", `�
 const module = new toolbox.PlayerModule("LC Staff Mods (X-RAY)", "Enable Staff Mods For Lunar Client", settingItem, "staffMods");
 
 module.customCode = () => {
+	if (config.modules.staffMods) {
+		player.lcPlayer?.setStaffModState("XRAY", true);
+	}
 	setInterval(async () => {
 		oldConfig = config;
 		config = await toolbox.getConfig();
@@ -28,6 +31,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "LC Staff Mods (X-RAY)",
 	description: "Enable Staff Mods For Lunar Client | `/ss`",
-	version: "1.0.3",
+	version: "1.0.4",
 	author: "TBHGodPro"
 });

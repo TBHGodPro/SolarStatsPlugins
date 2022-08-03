@@ -30,7 +30,7 @@ Restart The Proxy, And You're Ready To Go!
 ## Plugin Info
 <br />
 	
-### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.3
+### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.4
 Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
