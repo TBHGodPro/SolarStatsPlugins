@@ -14,10 +14,10 @@ module.customCode = () => {
 		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
 			if (config.modules.staffMods) {
 				player.lcPlayer?.setStaffModState("XRAY", true);
-				player.lcPlayer?.sendNotification("Enabled Staff Mods", "success");
+				player.lcPlayer?.sendNotification("Enabled Staff Mods", 1000, "success");
 			} else {
 				player.lcPlayer?.setStaffModState("XRAY", false);
-				player.lcPlayer?.sendNotification("Disabled Staff Mods", "error");
+				player.lcPlayer?.sendNotification("Disabled Staff Mods", 1000, "error");
 			}
 		}
 	}, 500);
@@ -28,6 +28,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "LC Staff Mods (X-RAY)",
 	description: "Enable Staff Mods For Lunar Client | `/ss`",
-	version: "1.0.2",
+	version: "1.0.3",
 	author: "TBHGodPro"
 });

@@ -1,5 +1,21 @@
-const getUUID = name => {
-	return player.connectedPlayers.find(p => p.name == name)?.uuid;
+const dirFetch = requireModule("node-fetch");
+const fetch = async (url, options) => {
+	var data = await dirFetch(url, options);
+	data = await data.text();
+
+	try {
+		data = JSON.parse(data);
+	} catch {}
+
+	return data;
+};
+
+const getUUID = async name => {
+	var id = player.connectedPlayers.find(p => p.name == name)?.uuid;
+	if (!id) {
+		var { id } = await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`);
+	}
+	return id;
 };
 
 var oldConfig = null;
@@ -13,9 +29,8 @@ settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your
 
 const module = new toolbox.PlayerModule("Party View", "View Your Party Members With LC Team View", settingItem, "PartyView");
 
-
 module.customCode = () => {
-	player.proxy.on("incoming", (data, meta, toClient, toServer) => {
+	player.proxy.on("incoming", async (data, meta, toClient, toServer) => {
 		if (meta.name != "chat") return;
 		var message = JSON.parse(data.message);
 		message.extra ??= [];
@@ -25,7 +40,7 @@ module.customCode = () => {
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers.push(name);
 			if (config.modules.PartyView) {
-				var id = getUUID(name);
+				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.addTeammate(id);
 			}
@@ -35,7 +50,7 @@ module.customCode = () => {
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers = partyMembers.filter(i => i != name);
 			if (config.modules.PartyView) {
-				var id = getUUID(name);
+				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.removeTeammate(id);
 			}
@@ -54,7 +69,7 @@ module.customCode = () => {
 			player.lcPlayer?.removeAllTeammates();
 			partyMembers.push(name);
 			if (config.modules.PartyView) {
-				var id = getUUID(name);
+				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.addTeammate(id);
 			}
@@ -76,7 +91,7 @@ module.customCode = () => {
 
 			if (config.modules.PartyView) {
 				for (var name of names) {
-					var id = getUUID(name);
+					var id = await getUUID(name);
 					if (!id) return;
 					player.lcPlayer?.addTeammate(id);
 				}
@@ -93,11 +108,11 @@ module.customCode = () => {
 		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
 			if (config.modules.PartyView) {
 				player.lcPlayer?.removeAllTeammates();
-				partyMembers.forEach(name => {
-					var id = getUUID(name);
+				for (var name of partyMembers) {
+					var id = await getUUID(name);
 					if (!id) return;
 					player.lcPlayer?.addTeammate(id);
-				});
+				}
 			} else {
 				player.lcPlayer?.removeAllTeammates();
 			}
@@ -109,12 +124,12 @@ module.onLocationUpdate = () => {
 	setTimeout(() => {
 		if (config.modules.PartyView) {
 			player.lcPlayer?.removeAllTeammates();
-			setTimeout(() => {
-				partyMembers.forEach(name => {
-					var id = getUUID(name);
+			setTimeout(async () => {
+				for (var name of partyMembers) {
+					var id = await getUUID(name);
 					if (!id) return;
 					player.lcPlayer?.addTeammate(id);
-				});
+				}
 			}, 500);
 		}
 	}, 1000);
@@ -131,6 +146,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "Party View",
 	description: "View Your Party Members With LC Team View | `/ss`",
-	version: "1.4.1",
+	version: "1.4.2",
 	author: "TBHGodPro"
 });

@@ -30,12 +30,12 @@ Restart The Proxy, And You're Ready To Go!
 ## Plugin Info
 <br />
 	
-### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.2
+### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.3
 Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
 	
-### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.1
+### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.2
 View Your Party Members With LC Team View
 ####  `/ss`
 <br />
