@@ -1,5 +1,6 @@
 function parseText(text) {
 	return text
+		.replace(/_/gi, " ")
 		.split(" ")
 		.map(e => {
 			return e[0].toUpperCase() + e.substr(1).toLowerCase();
