@@ -104,16 +104,21 @@ module.customCode = () => {
 	}, 500);
 };
 
-player.listener.on("switch_server", () => {
-	if (config.modules.PartyView) {
-		player.lcPlayer?.removeAllTeammates();
-		partyMembers.forEach(name => {
-			var id = getUUID(name);
-			if (!id) return;
-			player.lcPlayer?.addTeammate(id);
-		});
-	}
-});
+module.onLocationUpdate = () => {
+	setTimeout(() => {
+		if (config.modules.PartyView) {
+			player.lcPlayer?.removeAllTeammates();
+			setTimeout(() => {
+				partyMembers.forEach(name => {
+					var id = getUUID(name);
+					if (!id) return;
+					player.lcPlayer?.addTeammate(id);
+				});
+			}, 500);
+		}
+	}, 1000);
+};
+
 player.listener.on("player_join", (id, name) => {
 	if (config.modules.PartyView && partyMembers.includes(name) && id) {
 		player.lcPlayer?.addTeammate(id);
