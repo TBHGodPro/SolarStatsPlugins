@@ -865,11 +865,15 @@ const fetch = async (url, data) => {
 	return data;
 };
 
-const { Logger, Command, Item, Inventory, getConfigSync } = toolbox;
+const { Logger, Command, Item, Inventory, getConfigSync, getConfig } = toolbox;
 const { InventoryType } = requireModule("../Types");
 
 const config = getConfigSync();
-const { apiKey } = config;
+var { apiKey } = config;
+
+async function APIKey() {
+	apiKey = (await getConfig()).apiKey;
+}
 
 // Creating the command
 // See src/Classes/Command.ts for more information
@@ -1728,6 +1732,8 @@ async function createStatsInventory(player) {
 }
 
 cmd.onTriggered = async (chatCommand, args) => {
+	await APIKey();
+
 	var type = args[0] ?? "help";
 	var extra = args[1] ?? null;
 

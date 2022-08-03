@@ -1,11 +1,11 @@
-const settingItem = new toolbox.Item(4);
-settingItem.displayName = "§5§lLC §r§fStaff Mods §7(X-RAY)";
-settingItem.lore = ["", "§7Enable §fStaff Mods §7For §5Lunar Client", "", `§7Current: §${toolbox.getConfigSync().modules.staffMods ? "aEnabled" : "cDisabled"}`];
-
-const module = new toolbox.PlayerModule("LC Staff Mods (X-RAY)", "Enable Staff Mods For Lunar Client", settingItem, "staffMods");
-
 var oldConfig = null;
 var config = toolbox.getConfigSync();
+
+const settingItem = new toolbox.Item(4);
+settingItem.displayName = "§5§lLC §r§fStaff Mods §7(X-RAY)";
+settingItem.lore = ["", "§7Enable §fStaff Mods §7For §5Lunar Client", "", `§7Current: §${config.modules.staffMods ? "aEnabled" : "cDisabled"}`];
+
+const module = new toolbox.PlayerModule("LC Staff Mods (X-RAY)", "Enable Staff Mods For Lunar Client", settingItem, "staffMods");
 
 module.customCode = () => {
 	setInterval(async () => {

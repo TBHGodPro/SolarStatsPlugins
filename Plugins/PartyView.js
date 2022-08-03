@@ -2,16 +2,17 @@ const getUUID = name => {
 	return player.connectedPlayers.find(p => p.name == name)?.uuid;
 };
 
-const settingItem = new toolbox.Item(4);
-settingItem.displayName = "§rParty View";
-settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your Party Members", "", `§7Current: §${toolbox.getConfigSync().modules.PartyView ? "aEnabled" : "cDisabled"}`];
-
-const module = new toolbox.PlayerModule("Party View", "View Your Party Members With LC Team View", settingItem, "PartyView");
-
 var oldConfig = null;
 var config = toolbox.getConfigSync();
 
 var partyMembers = [];
+
+const settingItem = new toolbox.Item(4);
+settingItem.displayName = "§rParty View";
+settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your Party Members", "", `§7Current: §${config.modules.PartyView ? "aEnabled" : "cDisabled"}`];
+
+const module = new toolbox.PlayerModule("Party View", "View Your Party Members With LC Team View", settingItem, "PartyView");
+
 
 module.customCode = () => {
 	player.proxy.on("incoming", (data, meta, toClient, toServer) => {

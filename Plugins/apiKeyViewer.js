@@ -1,4 +1,4 @@
-const { getConfigSync, Command } = toolbox;
+const { getConfig, Command } = toolbox;
 
 const cmd = new Command(
 	"api", // Command name
@@ -6,8 +6,8 @@ const cmd = new Command(
 	[] // Command aliases
 );
 
-cmd.onTriggered = () => {
-	var { apiKey } = getConfigSync();
+cmd.onTriggered = async () => {
+	var { apiKey } = await getConfig();
 
 	var message = {
 		text: `\n§3Your API Key Is§6:\n\n§e${apiKey.split("").join("§e")}\n\n§r(§3Click To Put In The §6Chat Bar §3So You Can §6Copy §3It§6!§r)\n`,
