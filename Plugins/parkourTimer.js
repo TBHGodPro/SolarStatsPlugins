@@ -52,7 +52,7 @@ function parseTime(ms) {
 setInterval(() => {
 	if (timeStarted) {
 		var time = Date.now() - timeStarted;
-		player.client.write("chat", {
+		player.client?.write("chat", {
 			message: JSON.stringify({
 				text: parseTime(time)
 			}),

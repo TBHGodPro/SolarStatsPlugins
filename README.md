@@ -35,7 +35,7 @@ Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
 	
-### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.2
+### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.3
 View Your Party Members With LC Team View
 ####  `/ss`
 <br />

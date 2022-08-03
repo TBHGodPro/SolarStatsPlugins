@@ -10,8 +10,14 @@ const fetch = async (url, options) => {
 	return data;
 };
 
+var partyMembers = [];
+var partyUUIDs = {};
+
 const getUUID = async name => {
-	var id = player.connectedPlayers.find(p => p.name == name)?.uuid;
+	var id = partyUUIDs[name];
+	if (!id) {
+		var id = player.connectedPlayers.find(p => p.name == name)?.uuid;
+	}
 	if (!id) {
 		var { id } = await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`);
 	}
@@ -20,8 +26,6 @@ const getUUID = async name => {
 
 var oldConfig = null;
 var config = toolbox.getConfigSync();
-
-var partyMembers = [];
 
 const settingItem = new toolbox.Item(4);
 settingItem.displayName = "§rParty View";
@@ -39,8 +43,9 @@ module.customCode = () => {
 			var name = text.split(" ");
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers.push(name);
+			var id = await getUUID(name);
+			partyUUIDs[name] = id;
 			if (config.modules.PartyView) {
-				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.addTeammate(id);
 			}
@@ -49,6 +54,7 @@ module.customCode = () => {
 			var name = text.split(" ");
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers = partyMembers.filter(i => i != name);
+			delete partyUUIDs[name];
 			if (config.modules.PartyView) {
 				var id = await getUUID(name);
 				if (!id) return;
@@ -57,10 +63,11 @@ module.customCode = () => {
 		}
 		if (text.includes("has disbanded the party!") || text.includes("You left the party.")) {
 			partyMembers = [];
+			partyUUIDs = {};
 			player.lcPlayer?.removeAllTeammates();
 		}
 		if (text.includes("You have joined") && text.includes("party!")) {
-			setTimeout(() => player.executeCommand("/p list"), 1000);
+			setTimeout(() => player.executeCommand("/party list"), 1000);
 		}
 		if (text.includes("Party Leader:")) {
 			var name = text.split(" ");
@@ -68,8 +75,9 @@ module.customCode = () => {
 			partyMembers = [];
 			player.lcPlayer?.removeAllTeammates();
 			partyMembers.push(name);
+			var id = await getUUID(name);
+			partyUUIDs[name] = id;
 			if (config.modules.PartyView) {
-				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.addTeammate(id);
 			}
@@ -86,9 +94,11 @@ module.customCode = () => {
 						.splice(names[0].startsWith("[") ? 2 : 1, names.length - (names[0].startsWith("[") ? 2 : 1))
 						.join(" ")
 				);
-			partyMembers = [];
 			partyMembers.push(names);
-
+			for (var name of names) {
+				var id = await getUUID(name);
+				partyUUIDs[name] = id;
+			}
 			if (config.modules.PartyView) {
 				for (var name of names) {
 					var id = await getUUID(name);
@@ -96,9 +106,15 @@ module.customCode = () => {
 					player.lcPlayer?.addTeammate(id);
 				}
 			}
+			if (text.includes("Party Members:")) {
+				partyUUIDs = Object.keys(partyUUIDs)
+					.filter(i => partyMembers.includes(i))
+					.map(i => partyUUIDs[i]);
+			}
 		}
 		if (text.includes("You are not currently in a party.")) {
 			partyMembers = [];
+			partyUUIDs = {};
 			player.lcPlayer?.removeAllTeammates();
 		}
 	});
@@ -146,6 +162,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "Party View",
 	description: "View Your Party Members With LC Team View | `/ss`",
-	version: "1.4.2",
+	version: "1.4.3",
 	author: "TBHGodPro"
 });
