@@ -3,5 +3,6 @@ package-lock.json
 node_modules/
 push.js
 compress.js
+compressv2.js
 readme.js
 .prettierignore
