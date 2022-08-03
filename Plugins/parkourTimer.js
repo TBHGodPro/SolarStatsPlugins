@@ -1,9 +1,9 @@
 const { Command } = toolbox;
 
 const cmd = new Command(
-	"pr", // Command name
+	"reset", // Command name
 	[], // Command syntax
-	["reset"] // Command aliases
+	["pr"] // Command aliases
 );
 
 var timeStarted = null;
