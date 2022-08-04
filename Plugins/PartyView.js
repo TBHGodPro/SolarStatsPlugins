@@ -13,16 +13,22 @@ const fetch = async (url, options) => {
 var partyMembers = [];
 var partyUUIDs = {};
 
-const getUUID = async name => {
+function tm(id) {
+	return {
+		uuid: id
+	};
+}
+
+async function getUUID(name) {
 	var id = partyUUIDs[name];
 	if (!id) {
-		var id = player.connectedPlayers.find(p => p.name == name)?.uuid;
+		id = player.connectedPlayers.find(p => p.name == name)?.uuid;
 	}
 	if (!id) {
-		var { id } = await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`);
+		id = (await fetch(`https://api.mojang.com/users/profiles/minecraft/${name}`)).id;
 	}
 	return id;
-};
+}
 
 var oldConfig = null;
 var config = toolbox.getConfigSync();
@@ -47,7 +53,7 @@ module.customCode = () => {
 			partyUUIDs[name] = id;
 			if (config.modules.PartyView) {
 				if (!id) return;
-				player.lcPlayer?.addTeammate(id);
+				player.lcPlayer?.addTeammate(tm(id));
 			}
 		}
 		if (text.endsWith("left the party.") && !text.startsWith("You")) {
@@ -58,7 +64,7 @@ module.customCode = () => {
 			if (config.modules.PartyView) {
 				var id = await getUUID(name);
 				if (!id) return;
-				player.lcPlayer?.removeTeammate(id);
+				player.lcPlayer?.removeTeammate(tm(id));
 			}
 		}
 		if (text.includes("has disbanded the party!") || text.includes("You left the party.")) {
@@ -79,7 +85,7 @@ module.customCode = () => {
 			partyUUIDs[name] = id;
 			if (config.modules.PartyView) {
 				if (!id) return;
-				player.lcPlayer?.addTeammate(id);
+				player.lcPlayer?.addTeammate(tm(id));
 			}
 		}
 		if (text.includes("Party Moderators:") || text.includes("Party Members:")) {
@@ -103,7 +109,7 @@ module.customCode = () => {
 				for (var name of names) {
 					var id = await getUUID(name);
 					if (!id) return;
-					player.lcPlayer?.addTeammate(id);
+					player.lcPlayer?.addTeammate(tm(id));
 				}
 			}
 			if (text.includes("Party Members:")) {
@@ -121,13 +127,13 @@ module.customCode = () => {
 	setInterval(async () => {
 		oldConfig = config;
 		config = await toolbox.getConfig();
-		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
+		if (oldConfig.modules.partyView != config.modules.partyView) {
 			if (config.modules.PartyView) {
 				player.lcPlayer?.removeAllTeammates();
 				for (var name of partyMembers) {
 					var id = await getUUID(name);
 					if (!id) return;
-					player.lcPlayer?.addTeammate(id);
+					player.lcPlayer?.addTeammate(tm(id));
 				}
 			} else {
 				player.lcPlayer?.removeAllTeammates();
@@ -144,7 +150,7 @@ module.onLocationUpdate = () => {
 				for (var name of partyMembers) {
 					var id = await getUUID(name);
 					if (!id) return;
-					player.lcPlayer?.addTeammate(id);
+					player.lcPlayer?.addTeammate(tm(id));
 				}
 			}, 500);
 		}
@@ -153,7 +159,7 @@ module.onLocationUpdate = () => {
 
 player.listener.on("player_join", (id, name) => {
 	if (config.modules.PartyView && partyMembers.includes(name) && id) {
-		player.lcPlayer?.addTeammate(id);
+		player.lcPlayer?.addTeammate(tm(id));
 	}
 });
 

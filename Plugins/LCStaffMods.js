@@ -14,7 +14,7 @@ module.customCode = () => {
 	setInterval(async () => {
 		oldConfig = config;
 		config = await toolbox.getConfig();
-		if (JSON.stringify(oldConfig) != JSON.stringify(config)) {
+		if (oldConfig.modules.staffMods != config.modules.staffMods) {
 			if (config.modules.staffMods) {
 				player.lcPlayer?.setStaffModState("XRAY", true);
 				player.lcPlayer?.sendNotification("Enabled Staff Mods", 1000, "success");
