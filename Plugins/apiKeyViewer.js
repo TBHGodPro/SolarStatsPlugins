@@ -10,10 +10,14 @@ cmd.onTriggered = async () => {
 	var { apiKey } = await getConfig();
 
 	var message = {
-		text: `\n§3Your API Key Is§6:\n\n§e${apiKey.split("").join("§e")}\n\n§r(§3Click To Put In The §6Chat Bar §3So You Can §6Copy §3It§6!§r)\n`,
+		text: `§aYour API Key is\n§b${apiKey}`,
 		clickEvent: {
 			action: "suggest_command",
 			value: apiKey
+		},
+		hoverEvent: {
+			action: "show_text",
+			value: "§eClick to put key in chat so you can copy!"
 		}
 	};
 
