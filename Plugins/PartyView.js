@@ -30,12 +30,11 @@ async function getUUID(name) {
 	return id;
 }
 
-var oldConfig = null;
-var config = toolbox.getConfigSync();
+var enabled = toolbox.getConfigSync().modules.PartyView;
 
 const settingItem = new toolbox.Item(4);
 settingItem.displayName = "§rParty View";
-settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your Party Members", "", `§7Current: §${config.modules.PartyView ? "aEnabled" : "cDisabled"}`];
+settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your Party Members", "", `§7Current: §${enabled ? "aEnabled" : "cDisabled"}`];
 
 const module = new toolbox.PlayerModule("Party View", "View Your Party Members With LC Team View", settingItem, "PartyView");
 
@@ -51,7 +50,7 @@ module.customCode = () => {
 			partyMembers.push(name);
 			var id = await getUUID(name);
 			partyUUIDs[name] = id;
-			if (config.modules.PartyView) {
+			if (enabled) {
 				if (!id) return;
 				player.lcPlayer?.addTeammate(tm(id));
 			}
@@ -61,7 +60,7 @@ module.customCode = () => {
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers = partyMembers.filter(i => i != name);
 			delete partyUUIDs[name];
-			if (config.modules.PartyView) {
+			if (enabled) {
 				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.removeTeammate(tm(id));
@@ -83,7 +82,7 @@ module.customCode = () => {
 			partyMembers.push(name);
 			var id = await getUUID(name);
 			partyUUIDs[name] = id;
-			if (config.modules.PartyView) {
+			if (enabled) {
 				if (!id) return;
 				player.lcPlayer?.addTeammate(tm(id));
 			}
@@ -105,7 +104,7 @@ module.customCode = () => {
 				var id = await getUUID(name);
 				partyUUIDs[name] = id;
 			}
-			if (config.modules.PartyView) {
+			if (enabled) {
 				for (var name of names) {
 					var id = await getUUID(name);
 					if (!id) return;
@@ -124,27 +123,25 @@ module.customCode = () => {
 			player.lcPlayer?.removeAllTeammates();
 		}
 	});
-	setInterval(async () => {
-		oldConfig = config;
-		config = await toolbox.getConfig();
-		if (oldConfig.modules.partyView != config.modules.partyView) {
-			if (config.modules.PartyView) {
-				player.lcPlayer?.removeAllTeammates();
-				for (var name of partyMembers) {
-					var id = await getUUID(name);
-					if (!id) return;
-					player.lcPlayer?.addTeammate(tm(id));
-				}
-			} else {
-				player.lcPlayer?.removeAllTeammates();
-			}
+};
+
+module.onConfigChange = async e => {
+	enabled = e;
+	if (enabled) {
+		player.lcPlayer?.removeAllTeammates();
+		for (var name of partyMembers) {
+			var id = await getUUID(name);
+			if (!id) return;
+			player.lcPlayer?.addTeammate(tm(id));
 		}
-	}, 500);
+	} else {
+		player.lcPlayer?.removeAllTeammates();
+	}
 };
 
 module.onLocationUpdate = () => {
 	setTimeout(() => {
-		if (config.modules.PartyView) {
+		if (enabled) {
 			player.lcPlayer?.removeAllTeammates();
 			setTimeout(async () => {
 				for (var name of partyMembers) {
@@ -158,7 +155,7 @@ module.onLocationUpdate = () => {
 };
 
 player.listener.on("player_join", (id, name) => {
-	if (config.modules.PartyView && partyMembers.includes(name) && id) {
+	if (enabled && partyMembers.includes(name) && id) {
 		player.lcPlayer?.addTeammate(tm(id));
 	}
 });
