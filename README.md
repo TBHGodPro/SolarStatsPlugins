@@ -35,6 +35,11 @@ Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
 	
+### [MurderMysteryCheats (Credit: RichardDorian)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/MurderMysteryCheats) v1.0.2
+Set of cheats for Murder Mystery (Credit: RichardDorian)
+####  `/ss`
+<br />
+	
 ### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.3
 View Your Party Members With LC Team View
 ####  `/ss`
