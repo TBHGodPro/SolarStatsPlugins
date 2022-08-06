@@ -104,7 +104,7 @@ registerPlayerModule(module);
 
 registerPlugin({
 	name: "Skyblock Auto-Harp",
-	description: "Automatically Do Harp Songs (MACRO)",
+	description: "Automatically Do Harp Songs (MACRO) | `/ss`",
 	version: "1.0.0",
 	author: "TBHGodPro"
 });
