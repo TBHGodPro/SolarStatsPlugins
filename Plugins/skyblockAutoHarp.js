@@ -81,7 +81,7 @@ async function list(data, meta, toClient, toServer) {
 				});
 			}
 			player.proxy.removeListener("incoming", quickList);
-		}, 400);
+		}, 425);
 		nextAction += 1;
 	}
 	if (meta.name == "open_window" && JSON.parse(data.windowTitle).translate.startsWith("Harp - ")) {
