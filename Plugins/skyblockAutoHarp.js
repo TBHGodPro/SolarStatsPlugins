@@ -1,7 +1,7 @@
 const { PlayerModule, Item, getConfigSync, getConfig } = toolbox;
 var enabled = getConfigSync().modules.skyblockAutoHarp;
 
-const settingItem = new Item(4);
+const settingItem = new Item(261);
 settingItem.displayName = "§rSkyblock Auto-Harp";
 settingItem.lore = ["", "§7Automatically Do Harp Songs (MACRO)", "§7§lWARNING: §rREQUIRES DECENT PING", "", `§7Current: §${enabled ? "aEnabled" : "cDisabled"}`];
 
