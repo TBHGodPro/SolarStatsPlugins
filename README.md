@@ -65,7 +65,7 @@ Live Timer For Parkour
 ####  `/pr` `/reset`
 <br />
 	
-### [Skyblock Auto-Harp](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockAutoHarp.js) v1.0.0
+### [Skyblock Auto-Harp](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockAutoHarp.js) v1.0.1
 Automatically Do Harp Songs (MACRO)
 ####  `/ss`
 <br />

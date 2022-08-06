@@ -10,8 +10,6 @@ const module = new PlayerModule("Skyblock Auto-Harps", "Automatically Do Harp So
 var windowId = null;
 var nextAction = null;
 
-var colors = ["d", "e", "a", "2", "5", "1", "9"];
-
 async function list(data, meta, toClient, toServer) {
 	if (!(await getConfig()).modules.skyblockAutoHarp) return;
 	if (meta.name == "window_click") {
@@ -20,30 +18,11 @@ async function list(data, meta, toClient, toServer) {
 	if (meta.name == "set_slot" && data.windowId == windowId && data.slot > 36 && data.slot < 44 && data.item.blockId == 155) {
 		toServer.write("window_click", {
 			windowId: windowId,
-			slot: data.slot + 9,
+			slot: data.slot,
 			mouseButton: 2,
 			action: nextAction,
 			mode: 3,
-			item: {
-				blockId: 159,
-				itemCount: 1,
-				itemDamage: 0,
-				nbtData: {
-					type: "compound",
-					name: "",
-					value: {
-						display: {
-							type: "compound",
-							value: {
-								Name: {
-									type: "string",
-									value: `§${colors[data.slot - 37]}| §${colors[data.slot - 37]}Click!`
-								}
-							}
-						}
-					}
-				}
-			}
+			item: data.item
 		});
 		var next = true;
 		function quickList(dat, met) {
@@ -54,34 +33,16 @@ async function list(data, meta, toClient, toServer) {
 			if (next) {
 				toServer.write("window_click", {
 					windowId: windowId,
-					slot: data.slot + 9,
+					slot: data.slot,
 					mouseButton: 2,
 					action: nextAction,
 					mode: 3,
-					item: {
-						blockId: 159,
-						itemCount: 1,
-						itemDamage: 0,
-						nbtData: {
-							type: "compound",
-							name: "",
-							value: {
-								display: {
-									type: "compound",
-									value: {
-										Name: {
-											type: "string",
-											value: `§${colors[data.slot - 37]}| §${colors[data.slot - 37]}Click!`
-										}
-									}
-								}
-							}
-						}
-					}
+					item: data.item
 				});
+				nextAction += 1;
 			}
 			player.proxy.removeListener("incoming", quickList);
-		}, 425);
+		}, 410);
 		nextAction += 1;
 	}
 	if (meta.name == "open_window" && JSON.parse(data.windowTitle).translate.startsWith("Harp - ")) {
@@ -105,6 +66,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "Skyblock Auto-Harp",
 	description: "Automatically Do Harp Songs (MACRO) | `/ss`",
-	version: "1.0.0",
+	version: "1.0.1",
 	author: "TBHGodPro"
 });
