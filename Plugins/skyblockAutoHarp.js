@@ -29,6 +29,7 @@ async function list(data, meta, toClient, toServer) {
 			if (met.name == "set_slot" && dat.windowId == windowId && dat.slot == data.slot && dat.item.blockId == 159) next = false;
 		}
 		player.proxy.on("incoming", quickList);
+		nextAction += 1;
 		setTimeout(() => {
 			if (next) {
 				toServer.write("window_click", {
@@ -43,7 +44,6 @@ async function list(data, meta, toClient, toServer) {
 			}
 			player.proxy.removeListener("incoming", quickList);
 		}, 410);
-		nextAction += 1;
 	}
 	if (meta.name == "open_window" && JSON.parse(data.windowTitle).translate.startsWith("Harp - ")) {
 		windowId = data.windowId;
