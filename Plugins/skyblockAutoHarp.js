@@ -45,7 +45,7 @@ async function list(data, meta, toClient, toServer) {
 			player.proxy.removeListener("incoming", quickList);
 		}, 410);
 	}
-	if (meta.name == "open_window" && JSON.parse(data.windowTitle).translate.startsWith("Harp - ")) {
+	if (meta.name == "open_window" && JSON.parse(data.windowTitle)?.translate?.startsWith("Harp - ")) {
 		windowId = data.windowId;
 		nextAction = 1;
 	}
