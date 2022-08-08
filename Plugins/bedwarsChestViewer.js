@@ -1,5 +1,4 @@
-const { Command, Inventory, Item } = toolbox;
-const { InventoryType } = requireModule("../Types");
+const { Command, Inventory, InventoryType, Item } = toolbox;
 
 const ECCommand = new Command("ec", [], []);
 const TCCommand = new Command("tc", [], []);

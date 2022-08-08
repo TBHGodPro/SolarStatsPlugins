@@ -835,37 +835,21 @@ function getPetText(pet) {
 	return `§7[Lvl ${level?.level ?? "§cERROR"}§7] ${tier}${parseText(pet.type)}`;
 }
 
-const nbt = requireModule("prismarine-nbt");
-async function decodeNBT(data) {
-	return (await nbt.parse(Buffer.from(data, "base64"))).parsed.value.i.value.value;
-}
-
-const mainDir = __dirname
-	.split("/")
-	.splice(0, __dirname.split("/").length - 2)
-	.join("/");
-
 var rtf = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
 
-const dirFetch = requireModule("node-fetch");
-const fetch = async (url, data) => {
+const pFetch = async (url, data) => {
 	if (!url.startsWith("http")) {
 		url = `https://api.hypixel.net${url.startsWith("/") ? url : `/${url}`}`;
 		url = url.includes("?") ? `${url}&key=${apiKey}` : `${url}?key=${apiKey}`;
 	}
-	var data = await dirFetch(url, data);
-
-	data = await data.text();
-
-	try {
-		data = JSON.parse(data);
-	} catch {}
-
-	return data;
+	return await fetch(url, data);
 };
 
-const { Logger, Command, Item, Inventory, getConfigSync, getConfig } = toolbox;
-const { InventoryType } = requireModule("../Types");
+async function parseNBT(data) {
+	return (await parseNBTData(data))?.parsed?.value?.i?.value?.value;
+}
+
+const { Command, Item, Inventory, InventoryType, getConfigSync, getConfig, parseNBTData } = toolbox;
 
 const config = getConfigSync();
 var { apiKey } = config;
@@ -894,7 +878,7 @@ const cmd = new Command(
 );
 
 async function getUser(username) {
-	return await fetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
+	return await pFetch(`https://api.mojang.com/users/profiles/minecraft/${username}`);
 }
 
 function sendMessage(text) {
@@ -928,7 +912,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 		case 1: // Profile
 			for (var member of Object.keys(data.members)) {
 				data.members[member].id = member;
-				var names = await fetch(`https://api.mojang.com/user/profiles/${member}/names`);
+				var names = await pFetch(`https://api.mojang.com/user/profiles/${member}/names`);
 				data.members[member].username = names[names.length - 1].name;
 				data.members[member].names = names.filter(n => n.name != data.members[member].username).reverse();
 			}
@@ -1018,7 +1002,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 				viewInventoriesButton.lore = ["", `§3Inventories Of §6${member.username}`, ""];
 
 				if (member.inv_armor?.data) {
-					var armor = await decodeNBT(member.inv_armor.data);
+					var armor = await parseNBT(member.inv_armor.data);
 					var helmet = armor[3];
 					var chestplate = armor[2];
 					var leggings = armor[1];
@@ -1485,12 +1469,12 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					}
 					if (nbtName.endsWith("View Inventory") && !nbtLore[1]?.includes("OFF")) {
 						inventory.close(player);
-						(await createStatsInventoryOverlay(inventory, 3, await decodeNBT(data.inv_contents.data), player, name)).display(player);
+						(await createStatsInventoryOverlay(inventory, 3, await parseNBT(data.inv_contents.data), player, name)).display(player);
 						break;
 					}
 					if (nbtName.endsWith("View Accessory Bag") && !nbtLore[1]?.includes("OFF")) {
 						inventory.close(player);
-						(await createStatsInventoryOverlay(inventory, 4, await decodeNBT(data.talisman_bag.data), player, name)).display(player);
+						(await createStatsInventoryOverlay(inventory, 4, await parseNBT(data.talisman_bag.data), player, name)).display(player);
 						break;
 					}
 					if (nbtName.endsWith("View Wardrobe") && !nbtLore[1]?.includes("OFF")) {
@@ -1500,9 +1484,9 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 								inventory,
 								5,
 								{
-									data: await decodeNBT(data.wardrobe_contents.data),
+									data: await parseNBT(data.wardrobe_contents.data),
 									equipped: data.wardrobe_equipped_slot,
-									current: await decodeNBT(data.inv_armor.data)
+									current: await parseNBT(data.inv_armor.data)
 								},
 								player,
 								name
@@ -1517,7 +1501,7 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					}
 					if (nbtName.endsWith("View Personal Vault") && !nbtLore[1]?.includes("OFF")) {
 						inventory.close(player);
-						(await createStatsInventoryOverlay(inventory, 7, await decodeNBT(data.personal_vault_contents.data), player, name)).display(player);
+						(await createStatsInventoryOverlay(inventory, 7, await parseNBT(data.personal_vault_contents.data), player, name)).display(player);
 						break;
 					}
 				}
@@ -1536,7 +1520,7 @@ async function createStatsInventory(player) {
 
 	if (!name || !id) return sendMessage("This Player Doesn't Exist!");
 
-	var { profiles } = await fetch(`/skyblock/profiles?uuid=${id}`);
+	var { profiles } = await pFetch(`/skyblock/profiles?uuid=${id}`);
 	profiles = profiles
 		.map(profile => {
 			return {
@@ -1682,7 +1666,7 @@ async function createStatsInventory(player) {
 
 	inventory.addItems([{ item: UUIDItem, position: 45 }, { item: Close, position: 49 }, ...parseProfileItems()]);
 
-	const onlineStatus = (await fetch(`/status?uuid=${id}`))?.session;
+	const onlineStatus = (await pFetch(`/status?uuid=${id}`))?.session;
 	if (onlineStatus) {
 		var onlineItem = new Item(35);
 		if (onlineStatus.online) {
@@ -1753,7 +1737,7 @@ cmd.onTriggered = async (chatCommand, args) => {
 			}
 			var { name, id } = await getUser(extra);
 			if (!name || !id) return sendMessage("This Player Doesn't Exist!");
-			var { profiles } = await fetch(`/skyblock/profiles?uuid=${id}`);
+			var { profiles } = await pFetch(`/skyblock/profiles?uuid=${id}`);
 			profiles = profiles
 				.map(profile => {
 					return {

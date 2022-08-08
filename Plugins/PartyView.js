@@ -1,15 +1,3 @@
-const dirFetch = requireModule("node-fetch");
-const fetch = async (url, options) => {
-	var data = await dirFetch(url, options);
-	data = await data.text();
-
-	try {
-		data = JSON.parse(data);
-	} catch {}
-
-	return data;
-};
-
 var partyMembers = [];
 var partyUUIDs = {};
 

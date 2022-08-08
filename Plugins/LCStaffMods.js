@@ -12,11 +12,11 @@ module.customCode = async () => {
 
 module.onConfigChange = enabled => {
 	if (enabled) {
-		player.lcPlayer?.setStaffModState("XRAY", true);
 		player.lcPlayer?.sendNotification("Enabled Staff Mods", 1000, "info");
+		player.lcPlayer?.setStaffModState("XRAY", true);
 	} else {
-		player.lcPlayer?.setStaffModState("XRAY", false);
 		player.lcPlayer?.sendNotification("Disabled Staff Mods", 1000, "info");
+		player.lcPlayer?.setStaffModState("XRAY", false);
 	}
 };
 
