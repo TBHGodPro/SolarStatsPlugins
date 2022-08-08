@@ -17,6 +17,7 @@ module.exports = function (module) {
 			if (!target) return;
 			if (module.currentRole === "murderer") {
 				player.sendMessage(`§3§l${target.name} has a bow!`);
+				player.lcPlayer.sendNotification(`${target.name} has a bow!`, 1000, "warning");
 				player.lcPlayer.addTeammate({ uuid: target.uuid });
 			}
 		}
@@ -27,6 +28,7 @@ module.exports = function (module) {
 			if (!target) return;
 			if (module.currentRole === "innoncent" || module.currentRole === "detective") {
 				player.sendMessage(`§c§l${target.name} is a murderer!`);
+				player.lcPlayer.sendNotification(`${target.name} is a murderer!`, 1000, "warning");
 				player.lcPlayer.addTeammate({ uuid: target.uuid });
 			}
 		}

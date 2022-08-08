@@ -35,7 +35,7 @@ Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
 	
-### [MurderMysteryCheats (Credit: RichardDorian)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/MurderMysteryCheats) v1.0.2
+### [MurderMysteryCheats (Credit: RichardDorian)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/MurderMysteryCheats) v1.0.3
 Set of cheats for Murder Mystery (Credit: RichardDorian)
 ####  `/ss`
 <br />

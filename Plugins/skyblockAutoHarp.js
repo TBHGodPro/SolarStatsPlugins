@@ -1,9 +1,9 @@
-const { PlayerModule, Item, getConfigSync, getConfig } = toolbox;
+const { PlayerModule, Item, getConfigSync } = toolbox;
 var enabled = getConfigSync().modules.skyblockAutoHarp;
 
 const settingItem = new Item(261);
 settingItem.displayName = "§rSkyblock Auto-Harp";
-settingItem.lore = ["", "§7Automatically Do Harp Songs (MACRO)", "§7§lWARNING: §rREQUIRES DECENT PING", "", `§7Current: §${enabled ? "aEnabled" : "cDisabled"}`];
+settingItem.lore = ["", "§7Automatically Do Harp Songs (MACRO)", "§4§lWARNING: §r§cREQUIRES DECENT PING", "", `§7Current: §${enabled ? "aEnabled" : "cDisabled"}`];
 
 const module = new PlayerModule("Skyblock Auto-Harps", "Automatically Do Harp Songs (MACRO)", settingItem, "skyblockAutoHarp");
 
@@ -11,7 +11,7 @@ var windowId = null;
 var nextAction = null;
 
 async function list(data, meta, toClient, toServer) {
-	if (!(await getConfig()).modules.skyblockAutoHarp) return;
+	if (!enabled) return;
 	if (meta.name == "window_click") {
 		nextAction = data.action + 1;
 	}
