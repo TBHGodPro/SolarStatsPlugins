@@ -12,15 +12,14 @@ const module = new toolbox.PlayerModule("Block Lag Reducer", "Slightly Reduces B
 player.proxy.on("outgoing", async (data, meta, toClient, toServer) => {
 	if (!enabled) return;
 	if (meta.name != "block_place") return;
+	toServer.write("block_place", data);
 	var timesChanged = 0;
 	var list = (dat, met) => {
 		if (met.name != "block_change") return;
 		if (JSON.stringify(dat.location) != JSON.stringify(data.location)) return;
 		if (dat.type != 0) return;
-		if (timesChanged >= 40) return player.proxy.removeListener("incoming", list);
+		if (timesChanged >= 50) return player.proxy.removeListener("incoming", list);
 		setTimeout(() => toServer.write("block_place", data), 25);
-		setTimeout(() => toServer.write("block_place", data), 125);
-		setTimeout(() => toServer.write("block_place", data), 225);
 		timesChanged += 1;
 	};
 	player.proxy.on("incoming", list);
