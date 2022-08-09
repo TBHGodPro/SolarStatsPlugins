@@ -1010,7 +1010,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (helmet?.id) {
 						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-						helmetItem.amount = helmet.Count.value;
 						helmetItem.meta = helmet.Damage.value;
 						helmetItem.setupNbtData();
 						helmetItem.slotRepresentation.nbtData.value = helmet.tag.value;
@@ -1018,7 +1017,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (chestplate?.id) {
 						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-						chestplateItem.amount = chestplate.Count.value;
 						chestplateItem.meta = chestplate.Damage.value;
 						chestplateItem.setupNbtData();
 						chestplateItem.slotRepresentation.nbtData.value = chestplate.tag.value;
@@ -1026,7 +1024,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (leggings?.id) {
 						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-						leggingsItem.amount = leggings.Count.value;
 						leggingsItem.meta = leggings.Damage.value;
 						leggingsItem.setupNbtData();
 						leggingsItem.slotRepresentation.nbtData.value = leggings.tag.value;
@@ -1034,7 +1031,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (boots?.id) {
 						var bootsItem = new Item(boots.id.value, boots.Count.value);
-						bootsItem.amount = boots.Count.value;
 						bootsItem.meta = boots.Damage.value;
 						bootsItem.setupNbtData();
 						bootsItem.slotRepresentation.nbtData.value = boots.tag.value;
@@ -1179,7 +1175,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				item.amount = slot.Count.value;
 				item.meta = slot.Damage.value;
 				item.setupNbtData();
 				item.slotRepresentation.nbtData.value = slot.tag.value;
@@ -1228,7 +1223,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				item.amount = slot.Count.value;
 				item.meta = slot.Damage.value;
 				item.setupNbtData();
 				item.slotRepresentation.nbtData.value = slot.tag.value;
@@ -1256,7 +1250,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data.data.slice(0, 36)) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				item.amount = slot.Count.value;
 				item.meta = slot.Damage.value;
 				item.setupNbtData();
 				item.slotRepresentation.nbtData.value = slot.tag.value;
@@ -1277,7 +1270,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					var boots = data.current[0];
 					if (helmet?.id) {
 						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-						helmetItem.amount = helmet.Count.value;
 						helmetItem.meta = helmet.Damage.value;
 						helmetItem.setupNbtData();
 						helmetItem.slotRepresentation.nbtData.value = helmet.tag.value;
@@ -1286,7 +1278,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (chestplate?.id) {
 						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-						chestplateItem.amount = chestplate.Count.value;
 						chestplateItem.meta = chestplate.Damage.value;
 						chestplateItem.setupNbtData();
 						chestplateItem.slotRepresentation.nbtData.value = chestplate.tag.value;
@@ -1295,7 +1286,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (leggings?.id) {
 						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-						leggingsItem.amount = leggings.Count.value;
 						leggingsItem.meta = leggings.Damage.value;
 						leggingsItem.setupNbtData();
 						leggingsItem.slotRepresentation.nbtData.value = leggings.tag.value;
@@ -1304,7 +1294,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (boots?.id) {
 						var bootsItem = new Item(boots.id.value, boots.Count.value);
-						bootsItem.amount = boots.Count.value;
 						bootsItem.meta = boots.Damage.value;
 						bootsItem.setupNbtData();
 						bootsItem.slotRepresentation.nbtData.value = boots.tag.value;
@@ -1339,7 +1328,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data.data.slice(36)) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				item.amount = slot.Count.value;
 				item.meta = slot.Damage.value;
 				item.setupNbtData();
 				item.slotRepresentation.nbtData.value = slot.tag.value;
@@ -1360,7 +1348,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					var boots = data.current[0];
 					if (helmet?.id) {
 						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-						helmetItem.amount = helmet.Count.value;
 						helmetItem.meta = helmet.Damage.value;
 						helmetItem.setupNbtData();
 						helmetItem.slotRepresentation.nbtData.value = helmet.tag.value;
@@ -1369,7 +1356,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (chestplate?.id) {
 						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-						chestplateItem.amount = chestplate.Count.value;
 						chestplateItem.meta = chestplate.Damage.value;
 						chestplateItem.setupNbtData();
 						chestplateItem.slotRepresentation.nbtData.value = chestplate.tag.value;
@@ -1378,7 +1364,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (leggings?.id) {
 						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-						leggingsItem.amount = leggings.Count.value;
 						leggingsItem.meta = leggings.Damage.value;
 						leggingsItem.setupNbtData();
 						leggingsItem.slotRepresentation.nbtData.value = leggings.tag.value;
@@ -1387,7 +1372,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (boots?.id) {
 						var bootsItem = new Item(boots.id.value, boots.Count.value);
-						bootsItem.amount = boots.Count.value;
 						bootsItem.meta = boots.Damage.value;
 						bootsItem.setupNbtData();
 						bootsItem.slotRepresentation.nbtData.value = boots.tag.value;
@@ -1422,7 +1406,6 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				item.amount = slot.Count.value;
 				item.meta = slot.Damage.value;
 				item.setupNbtData();
 				item.slotRepresentation.nbtData.value = slot.tag.value;
