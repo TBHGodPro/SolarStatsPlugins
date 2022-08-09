@@ -5,7 +5,7 @@ settingItem.lore = ["", "§7Enable §fStaff Mods §7For §5Lunar Client", "", `�
 const module = new toolbox.PlayerModule("LC Staff Mods (X-RAY)", "Enable Staff Mods For Lunar Client", settingItem, "staffMods");
 
 module.customCode = async () => {
-	if ((await toolbox.getConfig()).modules.staffMods) {
+	if (module.enabled) {
 		player.lcPlayer?.setStaffModState("XRAY", true);
 	}
 };

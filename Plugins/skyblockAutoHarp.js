@@ -1,4 +1,4 @@
-const { PlayerModule, Item, getConfig, getConfigSync } = toolbox;
+const { PlayerModule, Item, getConfigSync } = toolbox;
 
 const settingItem = new Item(261);
 settingItem.displayName = "§rSkyblock Auto-Harp";
@@ -10,7 +10,7 @@ var windowId = null;
 var nextAction = null;
 
 async function list(data, meta, toClient, toServer) {
-	if (!(await getConfig()).modules.skyblockAutoHarp) return;
+	if (!module.enabled) return;
 	if (meta.name == "window_click") {
 		nextAction = data.action + 1;
 	}

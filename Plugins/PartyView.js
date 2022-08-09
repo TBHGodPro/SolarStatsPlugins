@@ -39,7 +39,7 @@ module.customCode = () => {
 			partyMembers.push(name);
 			var id = await getUUID(name);
 			partyUUIDs[name] = id;
-			if (enabled) {
+			if (module.enabled) {
 				if (!id) return;
 				player.lcPlayer?.addTeammate(tm(id));
 			}
@@ -49,7 +49,7 @@ module.customCode = () => {
 			name = name.splice(name[0].startsWith("[") ? 1 : 0, name.length - (name[0].startsWith("[") ? 4 : 3)).join(" ");
 			partyMembers = partyMembers.filter(i => i != name);
 			delete partyUUIDs[name];
-			if (enabled) {
+			if (module.enabled) {
 				var id = await getUUID(name);
 				if (!id) return;
 				player.lcPlayer?.removeTeammate(tm(id));
@@ -71,7 +71,7 @@ module.customCode = () => {
 			partyMembers.push(name);
 			var id = await getUUID(name);
 			partyUUIDs[name] = id;
-			if (enabled) {
+			if (module.enabled) {
 				if (!id) return;
 				player.lcPlayer?.addTeammate(tm(id));
 			}
@@ -93,7 +93,7 @@ module.customCode = () => {
 				var id = await getUUID(name);
 				partyUUIDs[name] = id;
 			}
-			if (enabled) {
+			if (module.enabled) {
 				for (var name of names) {
 					var id = await getUUID(name);
 					if (!id) return;
@@ -116,7 +116,7 @@ module.customCode = () => {
 
 module.onConfigChange = async e => {
 	enabled = e;
-	if (enabled) {
+	if (module.enabled) {
 		player.lcPlayer?.removeAllTeammates();
 		for (var name of partyMembers) {
 			var id = await getUUID(name);
@@ -130,7 +130,7 @@ module.onConfigChange = async e => {
 
 module.onLocationUpdate = () => {
 	setTimeout(() => {
-		if (enabled) {
+		if (module.enabled) {
 			player.lcPlayer?.removeAllTeammates();
 			setTimeout(async () => {
 				for (var name of partyMembers) {
@@ -144,7 +144,7 @@ module.onLocationUpdate = () => {
 };
 
 player.listener.on("player_join", (id, name) => {
-	if (enabled && partyMembers.includes(name) && id) {
+	if (module.enabled && partyMembers.includes(name) && id) {
 		player.lcPlayer?.addTeammate(tm(id));
 	}
 });
