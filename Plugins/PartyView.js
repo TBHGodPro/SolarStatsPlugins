@@ -21,7 +21,7 @@ async function getUUID(name) {
 var enabled = toolbox.getConfigSync().modules.PartyView;
 
 const settingItem = new toolbox.Item(397);
-settingItem.itemDamage = 3;
+settingItem.meta = 3;
 settingItem.displayName = "§rParty View";
 settingItem.lore = ["", "§7Use The Lunar Client Team View", "§7Mod To See Your Party Members", "", `§7Current: §${enabled ? "aEnabled" : "cDisabled"}`];
 

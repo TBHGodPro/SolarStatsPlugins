@@ -60,6 +60,11 @@ View Your Ender Chest And Team Chest From Anywhere
 ####  `/ec` `/tc`
 <br />
 	
+### [Block Lag Reducer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/blockLagReducer.js) v1.0.0
+Slightly Reduces Block Lag
+####  `/ss`
+<br />
+	
 ### [Parkour Timer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/parkourTimer.js) v1.1.0
 Live Timer For Parkour
 ####  `/pr` `/reset`
