@@ -874,7 +874,7 @@ const cmd = new Command(
 			type: "string"
 		}
 	], // Command syntax
-	["skyblock"] // Command aliases
+	["skyblock", "sbh"] // Command aliases
 );
 
 async function getUser(username) {
@@ -1010,30 +1010,26 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 
 					if (helmet?.id) {
 						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-						if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
-						helmetItem.displayName = helmet.tag.value.display.value.Name.value;
-						helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
+						helmetItem.setupNbtData();
+						helmetItem.slotRepresentation.nbtData.value = helmet.tag.value;
 					}
 
 					if (chestplate?.id) {
 						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-						if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
-						chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
-						chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
+						chestplateItem.setupNbtData();
+						chestplateItem.slotRepresentation.nbtData.value = chestplate.tag.value;
 					}
 
 					if (leggings?.id) {
 						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-						if (leggings.Damage.value) leggingsItem.meta = leggings.Damage.value;
-						leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
-						leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
+						leggingsItem.setupNbtData();
+						leggingsItem.slotRepresentation.nbtData.value = leggings.tag.value;
 					}
 
 					if (boots?.id) {
 						var bootsItem = new Item(boots.id.value, boots.Count.value);
-						if (boots.Damage.value) bootsItem.meta = boots.Damage.value;
-						bootsItem.displayName = boots.tag.value.display.value.Name.value;
-						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+						bootsItem.setupNbtData();
+						bootsItem.slotRepresentation.nbtData.value = boots.tag.value;
 					}
 				}
 
@@ -1175,9 +1171,8 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				if (slot.Damage.value) item.meta = slot.Damage.value;
-				item.displayName = slot.tag.value.display.value.Name.value;
-				item.lore = slot.tag.value.display.value.Lore.value.value;
+				item.setupNbtData();
+				item.slotRepresentation.nbtData.value = slot.tag.value;
 				if (data.indexOf(slot) < 9) {
 					var position = data.indexOf(slot) + 27;
 				} else {
@@ -1223,9 +1218,8 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				if (slot.Damage.value) item.meta = slot.Damage.value;
-				item.displayName = slot.tag.value.display.value.Name.value;
-				item.lore = slot.tag.value.display.value.Lore.value.value;
+				item.setupNbtData();
+				item.slotRepresentation.nbtData.value = slot.tag.value;
 				items[items.length] = {
 					item,
 					position: data.indexOf(slot).toString()
@@ -1250,9 +1244,8 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data.data.slice(0, 36)) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				if (slot.Damage.value) item.meta = slot.Damage.value;
-				item.displayName = slot.tag.value.display.value.Name.value;
-				item.lore = slot.tag.value.display.value.Lore.value.value;
+				item.setupNbtData();
+				item.slotRepresentation.nbtData.value = slot.tag.value;
 				items[items.length] = {
 					item,
 					position: data.data.indexOf(slot).toString()
@@ -1270,33 +1263,29 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					var boots = data.current[0];
 					if (helmet?.id) {
 						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-						if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
-						helmetItem.displayName = helmet.tag.value.display.value.Name.value;
-						helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
+						helmetItem.setupNbtData();
+						helmetItem.slotRepresentation.nbtData.value = helmet.tag.value;
 						inventory.addItem(helmetItem, i);
 					}
 
 					if (chestplate?.id) {
 						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-						if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
-						chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
-						chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
+						chestplateItem.setupNbtData();
+						chestplateItem.slotRepresentation.nbtData.value = chestplate.tag.value;
 						inventory.addItem(chestplateItem, i + 9);
 					}
 
 					if (leggings?.id) {
 						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-						if (chestplate.Damage.value) leggingsItem.meta = leggings.Damage.value;
-						leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
-						leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
+						leggingsItem.setupNbtData();
+						leggingsItem.slotRepresentation.nbtData.value = leggings.tag.value;
 						inventory.addItem(leggingsItem, i + 18);
 					}
 
 					if (boots?.id) {
 						var bootsItem = new Item(boots.id.value, boots.Count.value);
-						if (chestplate.Damage.value) bootsItem.meta = boots.Damage.value;
-						bootsItem.displayName = boots.tag.value.display.value.Name.value;
-						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+						bootsItem.setupNbtData();
+						bootsItem.slotRepresentation.nbtData.value = boots.tag.value;
 						inventory.addItem(bootsItem, i + 27);
 					}
 				} else if (!items.find(e => e.position == i) && !items.find(e => e.position == i + 9) && !items.find(e => e.position == i + 18) && !items.find(e => e.position == i + 27)) {
@@ -1328,9 +1317,8 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data.data.slice(36)) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				if (slot.Damage.value) item.meta = slot.Damage.value;
-				item.displayName = slot.tag.value.display.value.Name.value;
-				item.lore = slot.tag.value.display.value.Lore.value.value;
+				item.setupNbtData();
+				item.slotRepresentation.nbtData.value = slot.tag.value;
 				items[items.length] = {
 					item,
 					position: (data.data.indexOf(slot) - 36).toString()
@@ -1348,33 +1336,29 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 					var boots = data.current[0];
 					if (helmet?.id) {
 						var helmetItem = new Item(helmet.id.value, helmet.Count.value);
-						if (helmet.Damage.value) helmetItem.meta = helmet.Damage.value;
-						helmetItem.displayName = helmet.tag.value.display.value.Name.value;
-						helmetItem.lore = helmet.tag.value.display.value.Lore.value.value;
+						helmetItem.setupNbtData();
+						helmetItem.slotRepresentation.nbtData.value = helmet.tag.value;
 						inventory.addItem(helmetItem, i);
 					}
 
 					if (chestplate?.id) {
 						var chestplateItem = new Item(chestplate.id.value, chestplate.Count.value);
-						if (chestplate.Damage.value) chestplateItem.meta = chestplate.Damage.value;
-						chestplateItem.displayName = chestplate.tag.value.display.value.Name.value;
-						chestplateItem.lore = chestplate.tag.value.display.value.Lore.value.value;
+						chestplateItem.setupNbtData();
+						chestplateItem.slotRepresentation.nbtData.value = chestplate.tag.value;
 						inventory.addItem(chestplateItem, i + 9);
 					}
 
 					if (leggings?.id) {
 						var leggingsItem = new Item(leggings.id.value, leggings.Count.value);
-						if (chestplate.Damage.value) leggingsItem.meta = leggings.Damage.value;
-						leggingsItem.displayName = leggings.tag.value.display.value.Name.value;
-						leggingsItem.lore = leggings.tag.value.display.value.Lore.value.value;
+						leggingsItem.setupNbtData();
+						leggingsItem.slotRepresentation.nbtData.value = leggings.tag.value;
 						inventory.addItem(leggingsItem, i + 18);
 					}
 
 					if (boots?.id) {
 						var bootsItem = new Item(boots.id.value, boots.Count.value);
-						if (chestplate.Damage.value) bootsItem.meta = boots.Damage.value;
-						bootsItem.displayName = boots.tag.value.display.value.Name.value;
-						bootsItem.lore = boots.tag.value.display.value.Lore.value.value;
+						bootsItem.setupNbtData();
+						bootsItem.slotRepresentation.nbtData.value = boots.tag.value;
 						inventory.addItem(bootsItem, i + 27);
 					}
 				} else if (!items.find(e => e.position == i) && !items.find(e => e.position == i + 9) && !items.find(e => e.position == i + 18) && !items.find(e => e.position == i + 27)) {
@@ -1406,9 +1390,8 @@ async function createStatsInventoryOverlay(mainInventory, type, data, player, na
 			for (var slot of data) {
 				if (!slot.id) continue;
 				var item = new Item(slot.id.value, slot.Count.value);
-				if (slot.Damage.value) item.meta = slot.Damage.value;
-				item.displayName = slot.tag.value.display.value.Name.value;
-				item.lore = slot.tag.value.display.value.Lore.value.value;
+				item.setupNbtData();
+				item.slotRepresentation.nbtData.value = slot.tag.value;
 				items[items.length] = {
 					item,
 					position: data.indexOf(slot).toString()
@@ -1789,8 +1772,8 @@ registerCommand(cmd);
 
 // Registering the plugin, always put this at the end of the file
 registerPlugin({
-	name: "Skyblock",
-	description: "Skyblock Helper | `/skyblock` `/sb`",
-	version: "1.8.4", // Optional
+	name: "Skyblock Helper",
+	description: "Skyblock Helper | `/skyblock` `/sb` `/sbh`",
+	version: "1.9.0", // Optional
 	author: "TBHGodPro" // Optional
 });

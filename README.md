@@ -70,6 +70,6 @@ Automatically Do Harp Songs (MACRO)
 ####  `/ss`
 <br />
 	
-### [Skyblock](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockStats.js) v1.8.4
+### [Skyblock Helper](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockHelper.js) v1.9.0
 Skyblock Helper
-####  `/skyblock` `/sb`
+####  `/skyblock` `/sb` `/sbh`
