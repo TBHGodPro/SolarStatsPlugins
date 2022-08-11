@@ -5,8 +5,11 @@ function checkVersion(CV, V) {
 	if (CV == V) return false;
 	const CVersions = CV.split(".").map(i => parseInt(i));
 	const Versions = V.split(".").map(i => parseInt(i));
+	console.log(CVersions, Versions);
+	var index = 0;
 	for (const version of CVersions) {
-		if (version < Versions[CVersions.indexOf(version)]) return true;
+		if (CVersions[index] < Versions[index]) return true;
+		index += 1;
 	}
 	return false;
 }
