@@ -1,3 +1,5 @@
+require("../updater").default("skyblockHelper");
+
 function parseText(text) {
 	return text
 		.replace(/_/gi, " ")
@@ -1791,6 +1793,6 @@ registerCommand(cmd);
 registerPlugin({
 	name: "Skyblock Helper",
 	description: "Skyblock Helper | `/skyblock` `/sb` `/sbh`",
-	version: "1.9.0", // Optional
+	version: "1.10.0", // Optional
 	author: "TBHGodPro" // Optional
 });

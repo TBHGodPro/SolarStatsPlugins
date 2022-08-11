@@ -1,3 +1,5 @@
+require("../updater").default("bedwarsChestViewer");
+
 const { Command, Inventory, InventoryType, Item } = toolbox;
 
 const ECCommand = new Command("ec", [], []);
@@ -118,6 +120,6 @@ registerCommand(TCCommand);
 registerPlugin({
 	name: "Bedwars Chest Viewer",
 	description: "View Your Ender Chest And Team Chest From Anywhere | `/ec` `/tc`",
-	version: "1.2.1", // Optional
+	version: "1.3.0", // Optional
 	author: "TBHGodPro" // Optional
 });

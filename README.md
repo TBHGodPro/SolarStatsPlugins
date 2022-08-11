@@ -30,46 +30,45 @@ Restart The Proxy, And You're Ready To Go!
 ## Plugin Info
 <br />
 	
-### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.0.7
+### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.1.0
 Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
 	
-### [MurderMysteryCheats (Credit: RichardDorian)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/MurderMysteryCheats) v1.0.3
+### [MurderMysteryCheats (Credit: RichardDorian)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/MurderMysteryCheats.js) v1.1.0
 Set of cheats for Murder Mystery (Credit: RichardDorian)
 ####  `/ss`
 <br />
 	
-### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.4.3
+### [Party View](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/PartyView.js) v1.5.0
 View Your Party Members With LC Team View
 ####  `/ss`
 <br />
 	
-### [Thanks Watchdog!](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/ThanksWatchdog.js) v1.0.1
+### [Thanks Watchdog!](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/ThanksWatchdog.js) v1.1.0
 Thank Watchdog For Absolutely Nothing :P
-#### undefined
 <br />
 	
-### [API Key Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/apiKeyViewer.js) v1.0.1
+### [API Key Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/apiKeyViewer.js) v1.1.0
 .. what do you think dumbass
 ####  `/api`
 <br />
 	
-### [Bedwars Chest Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/bedwarsChestViewer.js) v1.2.1
+### [Bedwars Chest Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/bedwarsChestViewer.js) v1.3.0
 View Your Ender Chest And Team Chest From Anywhere
 ####  `/ec` `/tc`
 <br />
 	
-### [Parkour Timer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/parkourTimer.js) v1.1.0
+### [Parkour Timer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/parkourTimer.js) v1.2.0
 Live Timer For Parkour
 ####  `/pr` `/reset`
 <br />
 	
-### [Skyblock Auto-Harp](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockAutoHarp.js) v1.0.2
+### [Skyblock Auto-Harp](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockAutoHarp.js) v1.1.0
 Automatically Do Harp Songs (MACRO)
 ####  `/ss`
 <br />
 	
-### [Skyblock Helper](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockHelper.js) v1.9.0
+### [Skyblock Helper](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/skyblockHelper.js) v1.10.0
 Skyblock Helper
 ####  `/skyblock` `/sb` `/sbh`

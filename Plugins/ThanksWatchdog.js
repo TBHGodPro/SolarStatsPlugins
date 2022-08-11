@@ -1,3 +1,5 @@
+require("../updater").default("ThanksWatchdog");
+
 player.proxy.on("incoming", (data, meta, toClient, toServer) => {
 	if (meta.name != "chat") return;
 	var message = JSON.parse(data.message);
@@ -14,6 +16,6 @@ player.proxy.on("incoming", (data, meta, toClient, toServer) => {
 registerPlugin({
 	name: "Thanks Watchdog!",
 	description: "Thank Watchdog For Absolutely Nothing :P",
-	version: "1.0.1",
+	version: "1.1.0",
 	author: "TBHGodPro"
 });

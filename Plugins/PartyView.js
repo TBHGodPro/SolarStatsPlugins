@@ -1,3 +1,5 @@
+require("../updater").default("PartyView");
+
 var partyMembers = [];
 var partyUUIDs = {};
 
@@ -154,6 +156,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "Party View",
 	description: "View Your Party Members With LC Team View | `/ss`",
-	version: "1.4.3",
+	version: "1.5.0",
 	author: "TBHGodPro"
 });

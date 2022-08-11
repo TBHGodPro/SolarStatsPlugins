@@ -1,3 +1,5 @@
+require("../updater").default("skyblockAutoHarp");
+
 const { PlayerModule, Item, getConfigSync } = toolbox;
 
 const settingItem = new Item(261);
@@ -61,6 +63,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "Skyblock Auto-Harp",
 	description: "Automatically Do Harp Songs (MACRO) | `/ss`",
-	version: "1.0.2",
+	version: "1.1.0",
 	author: "TBHGodPro"
 });

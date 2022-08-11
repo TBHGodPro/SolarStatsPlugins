@@ -1,3 +1,5 @@
+require("../updater").default("apiKeyViewer");
+
 const { getConfig, Command } = toolbox;
 
 const cmd = new Command(
@@ -30,6 +32,6 @@ registerCommand(cmd);
 registerPlugin({
 	name: "API Key Viewer",
 	description: ".. what do you think dumbass | `/api`",
-	version: "1.0.1", // Optional
+	version: "1.1.0", // Optional
 	author: "TBHGodPro" // Optional
 });

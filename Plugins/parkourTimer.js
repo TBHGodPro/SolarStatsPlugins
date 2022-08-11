@@ -1,3 +1,5 @@
+require("../updater").default("parkourTimer");
+
 const { Command } = toolbox;
 
 const cmd = new Command(
@@ -64,6 +66,6 @@ setInterval(() => {
 registerPlugin({
 	name: "Parkour Timer",
 	description: "Live Timer For Parkour | `/pr` `/reset`",
-	version: "1.1.0",
+	version: "1.2.0",
 	author: "TBHGodPro"
 });

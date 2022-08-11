@@ -1,3 +1,5 @@
+require("../updater").default("LCStaffMods");
+
 const settingItem = new toolbox.Item(4);
 settingItem.displayName = "§5§lLC §r§fStaff Mods §7(X-RAY)";
 settingItem.lore = ["", "§7Enable §fStaff Mods §7For §5Lunar Client", "", `§7Current: §${toolbox.getConfigSync().modules.staffMods ? "aEnabled" : "cDisabled"}`];
@@ -25,6 +27,6 @@ registerPlayerModule(module);
 registerPlugin({
 	name: "LC Staff Mods (X-RAY)",
 	description: "Enable Staff Mods For Lunar Client | `/ss`",
-	version: "1.0.7",
+	version: "1.1.0",
 	author: "TBHGodPro"
 });
