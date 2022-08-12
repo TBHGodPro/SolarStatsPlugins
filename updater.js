@@ -27,6 +27,7 @@ export default async file => {
 	CV = CV.split('version:"')[CV.split('version:"').length - 1].split('",')[0];
 
 	const data = await fetch(`https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/${file}`).then(res => res.text());
+	if (!data || data == "404: Not Found") return;
 	const V = data.split('version:"')[data.split('version:"').length - 1].split('",')[0];
 
 	if (checkVersion(CV, V)) {
