@@ -1,4 +1,3 @@
-require("../../../updater").default("MurderMysteryCheats");
 require("./module")();
 
 registerPlugin({

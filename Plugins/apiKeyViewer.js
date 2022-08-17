@@ -1,5 +1,3 @@
-require("../updater").default("apiKeyViewer");
-
 const { getConfig, Command } = toolbox;
 
 const cmd = new Command(

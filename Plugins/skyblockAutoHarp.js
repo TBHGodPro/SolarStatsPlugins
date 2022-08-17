@@ -1,5 +1,3 @@
-require("../updater").default("skyblockAutoHarp");
-
 const { PlayerModule, Item, getConfigSync } = toolbox;
 
 const settingItem = new Item(261);

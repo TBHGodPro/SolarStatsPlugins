@@ -1,5 +1,3 @@
-require("../updater").default("LCStaffMods");
-
 const settingItem = new toolbox.Item(4);
 settingItem.displayName = "§5§lLC §r§fStaff Mods §7(X-RAY)";
 settingItem.lore = ["", "§7Enable §fStaff Mods §7For §5Lunar Client", "", `§7Current: §${toolbox.getConfigSync().modules.staffMods ? "aEnabled" : "cDisabled"}`];

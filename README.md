@@ -47,6 +47,7 @@ View Your Party Members With LC Team View
 	
 ### [Thanks Watchdog!](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/ThanksWatchdog.js) v1.1.0
 Thank Watchdog For Absolutely Nothing :P
+
 <br />
 	
 ### [API Key Viewer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/apiKeyViewer.js) v1.1.0
@@ -59,8 +60,9 @@ View Your Ender Chest And Team Chest From Anywhere
 ####  `/ec` `/tc`
 <br />
 	
-### [Game Stats](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/gameStats.js) v1.0.0
+### [Game Stats](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/gameStats.js) v1.0.1
 Shows Your Opponent's Game Stats In Duels Once They Join
+####  `/ss`
 <br />
 	
 ### [Parkour Timer](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/parkourTimer.js) v1.2.0

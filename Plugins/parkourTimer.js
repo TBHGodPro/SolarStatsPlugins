@@ -1,5 +1,3 @@
-require("../updater").default("parkourTimer");
-
 const { Command } = toolbox;
 
 const cmd = new Command(

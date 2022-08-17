@@ -1,5 +1,3 @@
-require("../updater").default("ThanksWatchdog");
-
 player.proxy.on("incoming", (data, meta, toClient, toServer) => {
 	if (meta.name != "chat") return;
 	var message = JSON.parse(data.message);

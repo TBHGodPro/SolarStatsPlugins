@@ -1,5 +1,3 @@
-require("../updater").default("skyblockHelper");
-
 function parseText(text) {
 	return text
 		.replace(/_/gi, " ")

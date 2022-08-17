@@ -1,5 +1,3 @@
-require("../updater").default("PartyView");
-
 var partyMembers = [];
 var partyUUIDs = {};
 
