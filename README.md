@@ -30,13 +30,13 @@ Restart The Proxy, And You're Ready To Go!
 ## Plugin Info
 <br />
 	
-### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.1.0
-Enable Staff Mods For Lunar Client
-####  `/ss`
+### [Custom Ranks](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/CustomRanks.js) v1.0.0
+Add custom ranks and give them to players
+
 <br />
 	
-### [MurderMysteryCheats (Credit: RichardDorian)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/MurderMysteryCheats.js) v1.1.0
-Set of cheats for Murder Mystery (Credit: RichardDorian)
+### [LC Staff Mods (X-RAY)](https://raw.githubusercontent.com/TBHGodPro/SolarStatsPlugins/main/Plugins%20(Compressed)/LCStaffMods.js) v1.1.0
+Enable Staff Mods For Lunar Client
 ####  `/ss`
 <br />
 	
